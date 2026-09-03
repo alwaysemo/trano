@@ -30,6 +30,7 @@ fn show_window(app: &tauri::AppHandle, label: &str) -> tauri::Result<()> {
                 .title(label)
                 .inner_size(380.0, 600.0)
                 .visible(false)
+                .decorations(false)
                 .build()?;
             apply_close_to_hide(app, label);
             window
@@ -67,7 +68,7 @@ pub fn run() {
                         .expect("default window icon not found")
                         .clone(),
                 )
-                .tooltip("translation-emo")
+                .tooltip("trano")
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "input" => {
                         if let Err(error) = show_window(app, "input") {

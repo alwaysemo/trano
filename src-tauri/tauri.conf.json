@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
-	"productName": "translation-emo",
+	"productName": "trano",
 	"version": "0.1.0",
 	"identifier": "com.alwaysemo.translation",
 	"build": {
@@ -10,6 +10,7 @@
 		"frontendDist": "../dist"
 	},
 	"app": {
+		"macOSPrivateApi": true,
 		"windows": [
 			{
 				"label": "input",
@@ -19,6 +20,7 @@
 				"height": 600,
 				"visible": false,
 				"decorations": false,
+				"transparent": true,
 				"center": true
 			},
 			{
@@ -29,6 +31,7 @@
 				"height": 600,
 				"visible": false,
 				"decorations": false,
+				"transparent": true,
 				"center": true
 			},
 			{
@@ -38,7 +41,8 @@
 				"width": 360,
 				"height": 600,
 				"visible": false,
-				"decorations": false
+				"decorations": false,
+				"transparent": true
 			},
 			{
 				"label": "settings",
@@ -48,6 +52,7 @@
 				"height": 600,
 				"visible": false,
 				"decorations": false,
+				"transparent": true,
 				"center": true
 			}
 		],

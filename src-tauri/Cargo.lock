@@ -3971,7 +3971,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "translation-emo"
+name = "trano"
 version = "0.1.0"
 dependencies = [
  "serde",

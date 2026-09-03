@@ -27,9 +27,6 @@ export default defineConfig(async () => ({
 				charset: false,
 				outputStyle: 'compressed',
 				api: 'modern-compiler',
-				// additionalData: `@use '@assets/style/color.scss' as color;
-				// 					@use '@assets/style/base.scss' as *;
-				// 					@use '@assets/style/transition.scss' as *;`,
 			},
 		},
 	},
