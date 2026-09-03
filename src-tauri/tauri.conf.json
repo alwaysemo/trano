@@ -1,35 +1,63 @@
 {
-  "$schema": "https://schema.tauri.app/config/2",
-  "productName": "translate",
-  "version": "0.1.0",
-  "identifier": "com.alwaysemo.translate",
-  "build": {
-    "beforeDevCommand": "bun run dev",
-    "devUrl": "http://localhost:3000",
-    "beforeBuildCommand": "bun run build",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "windows": [
-      {
-        "title": "translate",
-        "width": 800,
-        "height": 600
-      }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
-  }
+	"$schema": "https://schema.tauri.app/config/2",
+	"productName": "translation-emo",
+	"version": "0.1.0",
+	"identifier": "com.alwaysemo.translation",
+	"build": {
+		"beforeDevCommand": "bun run dev",
+		"devUrl": "http://localhost:3000",
+		"beforeBuildCommand": "bun run build",
+		"frontendDist": "../dist"
+	},
+	"app": {
+		"windows": [
+			{
+				"label": "input",
+				"url": "input.html",
+				"title": "输入翻译",
+				"width": 380,
+				"height": 600,
+				"visible": false,
+				"decorations": false,
+				"center": true
+			},
+			{
+				"label": "screenshot",
+				"url": "screenshot.html",
+				"title": "截图翻译",
+				"width": 360,
+				"height": 600,
+				"visible": false,
+				"decorations": false,
+				"center": true
+			},
+			{
+				"label": "selection",
+				"url": "selection.html",
+				"title": "划词翻译",
+				"width": 360,
+				"height": 600,
+				"visible": false,
+				"decorations": false
+			},
+			{
+				"label": "settings",
+				"url": "settings.html",
+				"title": "设置",
+				"width": 800,
+				"height": 600,
+				"visible": false,
+				"decorations": false,
+				"center": true
+			}
+		],
+		"security": {
+			"csp": null
+		}
+	},
+	"bundle": {
+		"active": true,
+		"targets": "all",
+		"icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"]
+	}
 }

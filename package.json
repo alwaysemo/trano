@@ -1,5 +1,5 @@
 {
-  "name": "translate",
+  "name": "translation-emo",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -12,9 +12,10 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "vue": "^3.5.42",
+    "@iconify/vue": "^5.0.1",
     "@tauri-apps/api": "^2.11.1",
-    "@tauri-apps/plugin-opener": "^2.5.5"
+    "@tauri-apps/plugin-opener": "^2.5.5",
+    "vue": "^3.5.42"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -27,7 +28,7 @@
     "globals": "^17.12.0",
     "prettier": "^3.9.6",
     "sass": "^1.103.1",
-    "typescript": "~7.0.2",
+    "typescript": "^7.0.2",
     "vite": "^8.2.2",
     "vue-tsc": "^3.3.11"
   }
