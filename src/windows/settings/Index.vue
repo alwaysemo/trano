@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	// 设置页
-	import { ref } from 'vue'
+	import { shallowRef } from 'vue'
 	import { getCurrentWindow } from '@tauri-apps/api/window'
 	import IconifyPower from '@iconify-vue/lucide/power'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
@@ -28,8 +28,8 @@
 		await appWindow.close()
 	}
 
-	const comped = ref(Mine)
-	const navbar = ref([
+	const comped = shallowRef(Mine)
+	const navbar = [
 		{ name: '我的', comp: Mine },
 		{ name: '偏好设置', comp: Preference },
 		{ name: '快捷键设置', comp: ShortcutKey },
@@ -37,7 +37,7 @@
 		{ name: '翻译源设置', comp: Source },
 		{ name: '网络设置', comp: Network },
 		{ name: '关于我们', comp: About },
-	])
+	]
 </script>
 
 <template>
@@ -143,23 +143,83 @@
 	.section-container {
 		display: grid;
 		grid-template-columns: 180px 1fr;
-		height: calc(100vh - 36px);
 		.sidebar-container {
+			position: relative;
+			padding: 10px;
+			z-index: 0;
+			&::after {
+				content: ' ';
+				position: absolute;
+				height: 200px;
+				width: 200px;
+				left: 50%;
+				top: 10%;
+				z-index: -1;
+				transform: translateX(-100%);
+				border-radius: 50%;
+				border: 2px solid #ffffffa6;
+				box-shadow: inset 10px 0px 20px #fff;
+				background-image: linear-gradient(#f159ff, #4982ff);
+				animation: ani 30s ease-in-out infinite;
+				filter: blur(30px);
+			}
+			&::before {
+				content: ' ';
+				position: absolute;
+				height: 130px;
+				width: 130px;
+				left: 50%;
+				bottom: 0%;
+				transform: translateX(-100%);
+				background-image: linear-gradient(90deg, #ee2eff, #0756ff);
+				border-radius: 50%;
+				z-index: -1;
+				border: 2px solid #ffffffa6;
+				filter: blur(40px);
+			}
 			nav {
-				padding: 10px;
+				overflow-y: auto;
+				height: calc(100vh - 56px);
 				div {
 					padding: 16px 24px;
 					border-radius: 12px;
 					text-align: right;
+					font-weight: bold;
+					border: 1px solid transparent;
 					cursor: pointer;
-					transition: background-color 0.3s;
+					transition: all 0.3s;
+					&:not(:last-child) {
+						margin-bottom: 4px;
+					}
 					&:hover,
 					&[data-selected='true'] {
-						background-color: #ffffff65;
-						backdrop-filter: blur(10px);
+						background-color: #ffffff1d;
+						border: 1px solid #ffffff89;
+						box-shadow: inset 4px 2px 8px #ffffff7e;
+						backdrop-filter: blur(20px);
 					}
 				}
 			}
+		}
+	}
+	@keyframes ani {
+		0% {
+			transform: translate3d(0%, 0%, 0) scale(1);
+		}
+		20% {
+			transform: translate3d(-65%, -45%, 0) scale(0.86);
+		}
+		42% {
+			transform: translate3d(-105%, -10%, 0) scale(0.82);
+		}
+		63% {
+			transform: translate3d(-75%, 60%, 0) scale(0.88);
+		}
+		82% {
+			transform: translate3d(-35%, 40%, 0) scale(0.96);
+		}
+		100% {
+			transform: translate3d(0%, 0%, 0) scale(1);
 		}
 	}
 </style>
