@@ -144,6 +144,7 @@
 		display: grid;
 		grid-template-columns: 180px 1fr;
 		.sidebar-container {
+			overflow: hidden;
 			position: relative;
 			padding: 10px;
 			z-index: 0;
@@ -175,6 +176,7 @@
 				border-radius: 50%;
 				z-index: -1;
 				border: 2px solid #ffffffa6;
+				animation: ani 20s ease-in-out infinite;
 				filter: blur(40px);
 			}
 			nav {
@@ -221,5 +223,8 @@
 		100% {
 			transform: translate3d(0%, 0%, 0) scale(1);
 		}
+	}
+	.main-container {
+		padding: 10px;
 	}
 </style>
