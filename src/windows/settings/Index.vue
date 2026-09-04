@@ -5,6 +5,13 @@
 	import IconifyPower from '@iconify-vue/lucide/power'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
 	import IconifyMinimize from '@iconify-vue/lucide/minimize'
+	import IconifyUserRound from '@iconify-vue/lucide/user-round'
+	import IconifyAstroid from '@iconify-vue/lucide/astroid'
+	import IconifyClipboardList from '@iconify-vue/lucide/clipboard-list'
+	import IconifyCloudCog from '@iconify-vue/lucide/cloud-cog'
+	import IconifyKeyboard from '@iconify-vue/lucide/keyboard'
+	import IconifyGlobe from '@iconify-vue/lucide/globe'
+	import IconifyUsersRound from '@iconify-vue/lucide/users-round'
 	import Mine from './components/Mine.vue'
 	import Preference from './components/Preference.vue'
 	import ShortcutKey from './components/ShortcutKey.vue'
@@ -30,13 +37,13 @@
 
 	const comped = shallowRef(Mine)
 	const navbar = [
-		{ name: '我的', comp: Mine },
-		{ name: '偏好设置', comp: Preference },
-		{ name: '快捷键设置', comp: ShortcutKey },
-		{ name: '翻译记录', comp: Record },
-		{ name: '翻译源设置', comp: Source },
-		{ name: '网络设置', comp: Network },
-		{ name: '关于我们', comp: About },
+		{ name: '我的', comp: Mine, icon: IconifyUserRound },
+		{ name: '偏好设置', comp: Preference, icon: IconifyAstroid },
+		{ name: '翻译记录', comp: Record, icon: IconifyClipboardList },
+		{ name: '翻译源设置', comp: Source, icon: IconifyCloudCog },
+		{ name: '快捷键设置', comp: ShortcutKey, icon: IconifyKeyboard },
+		{ name: '网络设置', comp: Network, icon: IconifyGlobe },
+		{ name: '关于我们', comp: About, icon: IconifyUsersRound },
 	]
 </script>
 
@@ -76,7 +83,8 @@
 						:enter="{ opacity: 1, y: 0, transition: { delay: (index + 2) * 100 } }"
 						@click="comped = item.comp"
 					>
-						{{ item.name }}
+						<component class="iconify" :is="item.icon" />
+						<span>{{ item.name }}</span>
 					</div>
 				</nav>
 			</aside>
@@ -144,7 +152,6 @@
 		display: grid;
 		grid-template-columns: 180px 1fr;
 		.sidebar-container {
-			overflow: hidden;
 			position: relative;
 			padding: 10px;
 			z-index: 0;
@@ -183,9 +190,12 @@
 				overflow-y: auto;
 				height: calc(100vh - 56px);
 				div {
+					display: flex;
+					align-items: center;
+					justify-content: flex-end;
+					gap: 4px;
 					padding: 16px 24px;
 					border-radius: 12px;
-					text-align: right;
 					font-weight: bold;
 					border: 1px solid transparent;
 					cursor: pointer;
@@ -199,6 +209,10 @@
 						border: 1px solid #ffffff89;
 						box-shadow: inset 4px 2px 8px #ffffff7e;
 						backdrop-filter: blur(20px);
+					}
+					.iconify {
+						width: 16px;
+						height: 16px;
 					}
 				}
 			}
@@ -225,6 +239,6 @@
 		}
 	}
 	.main-container {
-		padding: 10px;
+		padding: 0 10px;
 	}
 </style>
