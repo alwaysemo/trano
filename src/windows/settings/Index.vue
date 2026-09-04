@@ -89,7 +89,9 @@
 				</nav>
 			</aside>
 			<main class="main-container">
-				<component v-motion-slide-bottom :is="comped" />
+				<div>
+					<component v-motion-slide-bottom :is="comped" />
+				</div>
 			</main>
 		</section>
 	</div>
@@ -188,7 +190,7 @@
 			}
 			nav {
 				overflow-y: auto;
-				height: calc(100vh - 56px);
+				height: calc(100vh - 36px - 20px);
 				div {
 					display: flex;
 					align-items: center;
