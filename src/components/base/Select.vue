@@ -111,6 +111,10 @@
 		align-items: center;
 		min-width: 160px;
 	}
+	section:has(.select-container.open) {
+		position: relative;
+		z-index: 10;
+	}
 
 	.select-trigger {
 		display: flex;

@@ -348,8 +348,7 @@
 			</section>
 			<div class="module-footer-container">
 				<IconifySave class="iconify" />
-				<span v-if="updateVersion">{{ t('settings.updateAvailable', { version: updateVersion }) }}</span>
-				<span v-else>{{ t('settings.autoSave') }}</span>
+				<span>{{ t('settings.autoSave') }}</span>
 			</div>
 		</div>
 	</div>
@@ -362,11 +361,7 @@
 		display: grid;
 		gap: 24px;
 		overflow-y: auto;
-		height: calc(100vh - 36px - 20px - 44px);
-		section:has(.select-container.open) {
-			position: relative;
-			z-index: 10;
-		}
+		height: calc(100vh - 36px - 20px - 40px);
 		.primary-container {
 			display: flex;
 			align-items: center;

@@ -5,9 +5,27 @@
 </script>
 
 <template>
-	<div>{{ t('settings.network') }}</div>
+	<div>
+		<div class="module-header-container">
+			<div>
+				<p>TRANO / NETWORK</p>
+				<h1>{{ t('settings.network') }}</h1>
+			</div>
+			<span class="status-mark" data-status="warning"> </span>
+		</div>
+
+		<div class="module-main-container"></div>
+		<div class="module-footer-container">
+			<IconifySave class="iconify" />
+			<span>{{ t('settings.autoSave') }}</span>
+		</div>
+	</div>
 </template>
 
 <style scoped lang="scss">
-	/** */
+	@use './style.scss';
+
+	.module-main-container {
+		height: calc(100vh - 36px - 20px - 40px);
+	}
 </style>
