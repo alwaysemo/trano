@@ -28,7 +28,7 @@
 		autoUpdate: true,
 		showInDock: true,
 		position: 'center',
-		fontSize: 16,
+		fontSize: 14,
 		smartTranslate: true,
 	})
 	type PreferenceState = typeof state
