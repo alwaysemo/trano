@@ -19,6 +19,7 @@ export default defineConfig(async () => ({
 			'@stores': fileURLToPath(new URL('./src/stores', import.meta.url)),
 			'@components': fileURLToPath(new URL('./src/components', import.meta.url)),
 			'@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
+			'@i18n': fileURLToPath(new URL('./src/i18n', import.meta.url)),
 		},
 	},
 	css: {

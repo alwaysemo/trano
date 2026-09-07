@@ -4,7 +4,7 @@
 	import IconifyCheckCircle from '@iconify-vue/lucide/circle-check'
 	import IconifyInfo from '@iconify-vue/lucide/info'
 	import IconifyX from '@iconify-vue/lucide/x'
-	import { toast } from '@components/base/Toast'
+	import { toast } from '@components/base/Toast/toast'
 
 	const timers = new Map<number, ReturnType<typeof setTimeout>>()
 

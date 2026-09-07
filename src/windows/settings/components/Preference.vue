@@ -4,6 +4,7 @@
 	import { disable, enable, isEnabled } from '@tauri-apps/plugin-autostart'
 	import { check, type Update } from '@tauri-apps/plugin-updater'
 	import { relaunch } from '@tauri-apps/plugin-process'
+	import { invoke } from '@tauri-apps/api/core'
 	import IconifyDownload from '@iconify-vue/lucide/download'
 	import IconifyRefreshCw from '@iconify-vue/lucide/refresh-cw'
 	import IconifyGlobe from '@iconify-vue/lucide/globe-2'
@@ -14,14 +15,15 @@
 	import Switch from '@components/base/Switch.vue'
 	import Select from '@components/base/Select.vue'
 	import Slider from '@components/base/Slider.vue'
+	import { toast } from '@components/base/Toast/toast'
+	import { getLocalePreference, setLocale } from '@i18n'
+	import type { LocalePreference } from '@i18n'
 	import type { Menus } from '@windows/settings/components/types'
-	import { getLocalePreference, setLocale } from '@/i18n'
-	import { toast } from '@components/base/Toast'
 
 	const { t } = useI18n()
 
 	const state = reactive({
-		language: getLocalePreference(),
+		language: getLocalePreference() as LocalePreference,
 		launchAtLogin: false,
 		autoUpdate: true,
 		position: 'center',
@@ -36,7 +38,40 @@
 	const isInstallingUpdate = ref(false)
 	const isCheckingUpdate = ref(false)
 	let saveStatusTimer: ReturnType<typeof setTimeout> | undefined
+	let savePreferencesTimer: ReturnType<typeof setTimeout> | undefined
 	let isLoading = true
+
+	const loadPreferences = async () => {
+		const preferences = await invoke<{
+			language: LocalePreference
+			auto_update: boolean
+			position: string
+			font_size: number
+			smart_translate: boolean
+		}>('load_preferences')
+
+		state.language = preferences.language
+		state.autoUpdate = preferences.auto_update
+		state.position = preferences.position
+		state.fontSize = preferences.font_size
+		state.smartTranslate = preferences.smart_translate
+	}
+
+	const savePreferences = () => {
+		if (isLoading) return
+		if (savePreferencesTimer) clearTimeout(savePreferencesTimer)
+		savePreferencesTimer = setTimeout(() => {
+			void invoke('save_preferences', {
+				preferences: {
+					language: state.language,
+					auto_update: state.autoUpdate,
+					position: state.position,
+					font_size: state.fontSize,
+					smart_translate: state.smartTranslate,
+				},
+			}).catch((error) => console.error('保存偏好设置失败:', error))
+		}, 150)
+	}
 
 	const markSettingsUpdated = () => {
 		if (isLoading) return
@@ -185,6 +220,7 @@
 
 	onMounted(async () => {
 		try {
+			await loadPreferences()
 			state.launchAtLogin = await isEnabled()
 			await checkForUpdates()
 		} catch (error) {
@@ -212,10 +248,18 @@
 		},
 	)
 
-	watch(state, markSettingsUpdated, { deep: true })
+	watch(
+		state,
+		() => {
+			markSettingsUpdated()
+			savePreferences()
+		},
+		{ deep: true },
+	)
 
 	onUnmounted(() => {
 		if (saveStatusTimer) clearTimeout(saveStatusTimer)
+		if (savePreferencesTimer) clearTimeout(savePreferencesTimer)
 	})
 </script>
 

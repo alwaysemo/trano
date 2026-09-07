@@ -5,6 +5,8 @@ use tauri::{
 };
 use tauri_plugin_autostart::MacosLauncher;
 
+mod config;
+
 /// 拦截窗口关闭事件：不销毁窗口，而是隐藏，
 /// 这样托盘菜单才能随时把同一个窗口重新唤出
 fn apply_close_to_hide(app: &tauri::AppHandle, label: &str) {
@@ -37,8 +39,8 @@ fn show_window(app: &tauri::AppHandle, label: &str) -> tauri::Result<()> {
             window
         }
     };
-    window.show()?;
     window.unminimize()?;
+    window.show()?;
     window.set_focus()?;
     Ok(())
 }
@@ -46,6 +48,7 @@ fn show_window(app: &tauri::AppHandle, label: &str) -> tauri::Result<()> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![config::load_preferences, config::save_preferences])
         // Tauri 插件
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_autostart::init(
