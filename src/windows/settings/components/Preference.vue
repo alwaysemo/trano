@@ -16,7 +16,7 @@
 	import Slider from '@components/base/Slider.vue'
 	import type { Menus } from '@windows/settings/components/types'
 	import { getLocalePreference, setLocale } from '@/i18n'
-	import { toast } from '@/components/base/toast'
+	import { toast } from '@components/base/Toast'
 
 	const { t } = useI18n()
 
