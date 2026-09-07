@@ -262,7 +262,9 @@
 		() => state.showInDock,
 		(show) => {
 			if (isLoading) return
-			void invoke('set_icon_visibility', { show }).catch((error) => console.error('更新程序坞/任务栏图标设置失败:', error))
+			void invoke('set_icon_visibility', { show }).catch((error) =>
+				console.error('更新程序坞/任务栏图标设置失败:', error),
+			)
 		},
 	)
 
@@ -355,4 +357,85 @@
 
 <style scoped lang="scss">
 	@use './style.scss';
+
+	.module-main-container {
+		display: grid;
+		gap: 24px;
+		overflow-y: auto;
+		height: calc(100vh - 36px - 20px - 44px);
+		section:has(.select-container.open) {
+			position: relative;
+			z-index: 10;
+		}
+		.primary-container {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			line-height: 1;
+			.iconify {
+				padding: 6px;
+				width: 18px;
+				height: 18px;
+				border-radius: 6px;
+				background-color: #ffffff1d;
+				border: 1px solid #ffffff89;
+				box-shadow: inset 4px 2px 8px #ffffff7e;
+				backdrop-filter: blur(10px);
+			}
+			h3 {
+				font-size: 14px;
+			}
+			p {
+				margin-top: 4px;
+				font-size: 12px;
+				color: #89909a;
+			}
+		}
+		.module-menus-container {
+			margin-top: 8px;
+			border-radius: 12px;
+			background-color: #ffffff1d;
+			border: 1px solid #ffffff89;
+			box-shadow: inset 4px 2px 8px #ffffff7e;
+			backdrop-filter: blur(20px);
+			li {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 12px;
+				transition: all 0.3s;
+				&:first-child {
+					border-radius: 12px 12px 0 0;
+				}
+				&:last-child {
+					border-radius: 0 0 12px 12px;
+				}
+				&:not(:last-child) {
+					border-bottom: 1px solid #ffffff89;
+				}
+				&:hover {
+					background-color: #ffffff46;
+					box-shadow: inset 4px 2px 8px #ffffff7e;
+				}
+				.name-container {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+					line-height: 1;
+					strong {
+						font-size: 14px;
+					}
+					span {
+						color: #89909a;
+						font-size: 12px;
+					}
+				}
+				.content-container {
+					display: flex;
+					align-items: center;
+					gap: 10px;
+				}
+			}
+		}
+	}
 </style>
