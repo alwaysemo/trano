@@ -18,7 +18,7 @@ type SwitchMenuItem<State> = BaseMenuItem<State> & {
 type SelectMenuItem<State> = BaseMenuItem<State> & {
 	type: 'select'
 	key: KeysOfType<State, string>
-	options: { label: string; value: string }[]
+	options: { label: string; value: string; flag?: string }[]
 }
 
 type SliderMenuItem<State> = BaseMenuItem<State> & {

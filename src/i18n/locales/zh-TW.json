@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "我的帳戶",
+		"preference": "偏好設定",
+		"record": "翻譯紀錄",
+		"source": "翻譯來源",
+		"shortcut": "快捷鍵設定",
+		"network": "網路設定",
+		"about": "關於我們",
+		"close": "關閉",
+		"minimize": "最小化",
+		"maximize": "最大化",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "偏好設定",
+		"synced": "已同步",
+		"autoSave": "設定會自動儲存",
+		"groups": {
+			"general": "一般",
+			"generalDescription": "讓 Trano 更貼近你的工作習慣",
+			"translationWindow": "翻譯視窗",
+			"translationWindowDescription": "調整結果出現的時機與位置",
+			"smartExperience": "智慧體驗",
+			"smartExperienceDescription": "讓翻譯變得更自然"
+		},
+		"items": {
+			"language": "介面語言",
+			"languageHint": "選擇應用程式顯示語言",
+			"launchAtLogin": "開機自動啟動",
+			"launchAtLoginHint": "登入後自動啟動 Trano",
+			"autoUpdate": "自動檢查更新",
+			"autoUpdateHint": "及時取得新功能與穩定性修正",
+			"position": "顯示位置",
+			"positionHint": "新視窗預設出現的位置",
+			"fontSize": "字型大小",
+			"fontSizeHint": "讓譯文更容易閱讀",
+			"smartTranslate": "智慧辨識語言",
+			"smartTranslateHint": "自動判斷翻譯原文的語言"
+		},
+		"options": {
+			"default": "跟隨系統",
+			"zhCN": "簡體中文",
+			"en": "英文",
+			"ja": "日文",
+			"ko": "韓文",
+			"fr": "法文",
+			"es": "西班牙文",
+			"de": "德文",
+			"pt": "葡萄牙文",
+			"zhTW": "繁體中文",
+			"center": "螢幕中央",
+			"last": "上次位置",
+			"cursor": "跟隨游標"
+		}
+	},
+	"windows": {
+		"input": "文字翻譯",
+		"screenshot": "截圖翻譯",
+		"selection": "劃詞翻譯"
+	}
+}

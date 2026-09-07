@@ -87,6 +87,10 @@
 	gap: 24px;
 	overflow-y: auto;
 	height: calc(100vh - 36px - 20px - 44px);
+	section:has(.select-container.open) {
+		position: relative;
+		z-index: 10;
+	}
 	.primary-container {
 		display: flex;
 		align-items: center;

@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "Mon compte",
+		"preference": "Préférences",
+		"record": "Historique des traductions",
+		"source": "Sources de traduction",
+		"shortcut": "Raccourcis clavier",
+		"network": "Réseau",
+		"about": "À propos",
+		"close": "Fermer",
+		"minimize": "Réduire",
+		"maximize": "Agrandir",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "Préférences",
+		"synced": "Synchronisé",
+		"autoSave": "Les réglages sont enregistrés automatiquement",
+		"groups": {
+			"general": "Général",
+			"generalDescription": "Adaptez Trano à votre façon de travailler",
+			"translationWindow": "Fenêtre de traduction",
+			"translationWindowDescription": "Réglez quand et où les résultats apparaissent",
+			"smartExperience": "Expérience intelligente",
+			"smartExperienceDescription": "Rendez la traduction plus naturelle"
+		},
+		"items": {
+			"language": "Langue de l’interface",
+			"languageHint": "Choisissez la langue utilisée par l’application",
+			"launchAtLogin": "Lancer à la connexion",
+			"launchAtLoginHint": "Démarrer Trano automatiquement après la connexion",
+			"autoUpdate": "Rechercher automatiquement les mises à jour",
+			"autoUpdateHint": "Recevez rapidement les nouveautés et correctifs de stabilité",
+			"position": "Position d’affichage",
+			"positionHint": "Position par défaut des nouvelles fenêtres",
+			"fontSize": "Taille du texte",
+			"fontSizeHint": "Rendez le texte traduit plus lisible",
+			"smartTranslate": "Détecter automatiquement la langue",
+			"smartTranslateHint": "Identifiez automatiquement la langue source"
+		},
+		"options": {
+			"default": "Suivre le système",
+			"zhCN": "Chinois simplifié",
+			"en": "Anglais",
+			"ja": "Japonais",
+			"ko": "Coréen",
+			"fr": "Français",
+			"es": "Espagnol",
+			"de": "Allemand",
+			"pt": "Portugais",
+			"zhTW": "Chinois traditionnel",
+			"center": "Centre de l’écran",
+			"last": "Dernière position",
+			"cursor": "Suivre le curseur"
+		}
+	},
+	"windows": {
+		"input": "Traduction de texte",
+		"screenshot": "Traduction de capture",
+		"selection": "Traduction de sélection"
+	}
+}

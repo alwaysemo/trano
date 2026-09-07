@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "Mein Konto",
+		"preference": "Einstellungen",
+		"record": "Übersetzungsverlauf",
+		"source": "Übersetzungsquellen",
+		"shortcut": "Tastenkürzel",
+		"network": "Netzwerk",
+		"about": "Über",
+		"close": "Schließen",
+		"minimize": "Minimieren",
+		"maximize": "Maximieren",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "Einstellungen",
+		"synced": "Synchronisiert",
+		"autoSave": "Einstellungen werden automatisch gespeichert",
+		"groups": {
+			"general": "Allgemein",
+			"generalDescription": "Passe Trano an deine Arbeitsweise an",
+			"translationWindow": "Übersetzungsfenster",
+			"translationWindowDescription": "Lege fest, wann und wo Ergebnisse erscheinen",
+			"smartExperience": "Intelligente Funktionen",
+			"smartExperienceDescription": "Mache Übersetzungen natürlicher"
+		},
+		"items": {
+			"language": "Oberflächensprache",
+			"languageHint": "Wähle die Sprache der App",
+			"launchAtLogin": "Beim Anmelden starten",
+			"launchAtLoginHint": "Trano nach der Anmeldung automatisch starten",
+			"autoUpdate": "Automatisch nach Updates suchen",
+			"autoUpdateHint": "Neue Funktionen und Stabilitätsverbesserungen erhalten",
+			"position": "Anzeigeposition",
+			"positionHint": "Standardposition neuer Fenster",
+			"fontSize": "Schriftgröße",
+			"fontSizeHint": "Übersetzten Text besser lesbar machen",
+			"smartTranslate": "Sprache automatisch erkennen",
+			"smartTranslateHint": "Die Ausgangssprache automatisch erkennen"
+		},
+		"options": {
+			"default": "Systemsprache verwenden",
+			"zhCN": "Chinesisch (vereinfacht)",
+			"en": "Englisch",
+			"ja": "Japanisch",
+			"ko": "Koreanisch",
+			"fr": "Französisch",
+			"es": "Spanisch",
+			"de": "Deutsch",
+			"pt": "Portugiesisch",
+			"zhTW": "Chinesisch (traditionell)",
+			"center": "Bildschirmmitte",
+			"last": "Letzte Position",
+			"cursor": "Cursor folgen"
+		}
+	},
+	"windows": {
+		"input": "Textübersetzung",
+		"screenshot": "Screenshot-Übersetzung",
+		"selection": "Auswahlübersetzung"
+	}
+}

@@ -66,7 +66,7 @@
 		display: flex;
 		align-items: center;
 		width: 100%;
-		min-width: 120px;
+		min-width: 160px;
 	}
 
 	.slider-value {

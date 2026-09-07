@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	// 设置页
-	import { shallowRef } from 'vue'
+	import { computed, shallowRef } from 'vue'
+	import { useI18n } from 'vue-i18n'
 	import { getCurrentWindow } from '@tauri-apps/api/window'
 	import IconifyPower from '@iconify-vue/lucide/power'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
@@ -20,6 +21,8 @@
 	import Network from './components/Network.vue'
 	import About from './components/About.vue'
 
+	const { t } = useI18n()
+
 	const appWindow = getCurrentWindow()
 
 	const drag = async (event = new MouseEvent('mousedown')) => {
@@ -36,35 +39,42 @@
 	}
 
 	const comped = shallowRef(Mine)
-	const navbar = [
-		{ name: '我的', comp: Mine, icon: IconifyUserRound },
-		{ name: '偏好设置', comp: Preference, icon: IconifyAstroid },
-		{ name: '翻译记录', comp: Record, icon: IconifyClipboardList },
-		{ name: '翻译源设置', comp: Source, icon: IconifyCloudCog },
-		{ name: '快捷键设置', comp: ShortcutKey, icon: IconifyKeyboard },
-		{ name: '网络设置', comp: Network, icon: IconifyGlobe },
-		{ name: '关于我们', comp: About, icon: IconifyUsersRound },
-	]
+	const navbar = computed(() => [
+		{ name: t('settings.my'), comp: Mine, icon: IconifyUserRound },
+		{ name: t('settings.preference'), comp: Preference, icon: IconifyAstroid },
+		{ name: t('settings.record'), comp: Record, icon: IconifyClipboardList },
+		{ name: t('settings.source'), comp: Source, icon: IconifyCloudCog },
+		{ name: t('settings.shortcut'), comp: ShortcutKey, icon: IconifyKeyboard },
+		{ name: t('settings.network'), comp: Network, icon: IconifyGlobe },
+		{ name: t('settings.about'), comp: About, icon: IconifyUsersRound },
+	])
 </script>
 
 <template>
 	<div>
 		<header class="header-container" @mousedown.stop="drag">
 			<div class="control-container">
-				<button v-motion-pop-visible-once data-color="close" type="button" title="关闭" @mousedown.stop @click="close">
+				<button
+					v-motion-pop-visible-once
+					data-color="close"
+					type="button"
+					:title="t('settings.close')"
+					@mousedown.stop
+					@click="close"
+				>
 					<IconifyPower class="iconify" />
 				</button>
 				<button
 					v-motion-pop-visible-once
 					data-color="minimize"
 					type="button"
-					title="最小化"
+					:title="t('settings.minimize')"
 					@mousedown.stop
 					@click="minimize"
 				>
 					<IconifyMinus class="iconify" />
 				</button>
-				<button v-motion-pop-visible-once data-color="maximize" type="button" title="最大化">
+				<button v-motion-pop-visible-once data-color="maximize" type="button" :title="t('settings.maximize')">
 					<IconifyMinimize class="iconify" />
 				</button>
 			</div>
@@ -152,7 +162,7 @@
 	}
 	.section-container {
 		display: grid;
-		grid-template-columns: 180px 1fr;
+		grid-template-columns: minmax(180px, max-content) minmax(0, 1fr);
 		.sidebar-container {
 			position: relative;
 			padding: 10px;
@@ -194,9 +204,9 @@
 				div {
 					display: flex;
 					align-items: center;
-					justify-content: flex-end;
+					height: 56px;
 					gap: 4px;
-					padding: 16px 24px;
+					padding: 0 12px;
 					border-radius: 12px;
 					font-weight: bold;
 					border: 1px solid transparent;

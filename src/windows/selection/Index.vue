@@ -1,3 +1,9 @@
+<script setup lang="ts">
+	import { useI18n } from 'vue-i18n'
+
+	const { t } = useI18n()
+</script>
+
 <template>
-	<main>划词翻译</main>
+	<main>{{ t('windows.selection') }}</main>
 </template>

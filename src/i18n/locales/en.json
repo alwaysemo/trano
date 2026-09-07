@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "My account",
+		"preference": "Preferences",
+		"record": "Translation history",
+		"source": "Translation sources",
+		"shortcut": "Keyboard shortcuts",
+		"network": "Network",
+		"about": "About",
+		"close": "Close",
+		"minimize": "Minimize",
+		"maximize": "Maximize",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "Preferences",
+		"synced": "Synced",
+		"autoSave": "Settings are saved automatically",
+		"groups": {
+			"general": "General",
+			"generalDescription": "Make Trano fit the way you work",
+			"translationWindow": "Translation window",
+			"translationWindowDescription": "Adjust when and where results appear",
+			"smartExperience": "Smart experience",
+			"smartExperienceDescription": "Make translation feel more natural"
+		},
+		"items": {
+			"language": "Interface language",
+			"languageHint": "Choose the language used by the app",
+			"launchAtLogin": "Launch at login",
+			"launchAtLoginHint": "Start Trano automatically after login",
+			"autoUpdate": "Check for updates automatically",
+			"autoUpdateHint": "Get new features and stability fixes promptly",
+			"position": "Display position",
+			"positionHint": "Where new windows appear by default",
+			"fontSize": "Font size",
+			"fontSizeHint": "Make translated text easier to read",
+			"smartTranslate": "Detect language automatically",
+			"smartTranslateHint": "Automatically identify the source language"
+		},
+		"options": {
+			"default": "Follow system",
+			"zhCN": "简体中文",
+			"zhTW": "繁體中文",
+			"en": "English",
+			"ja": "日本語",
+			"ko": "한국어",
+			"fr": "Français",
+			"es": "Español",
+			"de": "Deutsch",
+			"pt": "Português",
+			"center": "Center of screen",
+			"last": "Previous position",
+			"cursor": "Follow cursor"
+		}
+	},
+	"windows": {
+		"input": "Text translation",
+		"screenshot": "Screenshot translation",
+		"selection": "Selection translation"
+	}
+}

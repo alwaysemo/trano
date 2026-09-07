@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+	import { useI18n } from 'vue-i18n'
+
+	const { t } = useI18n()
+</script>
 
 <template>
-	<div>翻译记录</div>
+	<div>{{ t('settings.record') }}</div>
 </template>
 
 <style scoped lang="scss">

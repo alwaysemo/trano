@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "Minha conta",
+		"preference": "Preferências",
+		"record": "Histórico de traduções",
+		"source": "Fontes de tradução",
+		"shortcut": "Atalhos de teclado",
+		"network": "Rede",
+		"about": "Sobre",
+		"close": "Fechar",
+		"minimize": "Minimizar",
+		"maximize": "Maximizar",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "Preferências",
+		"synced": "Sincronizado",
+		"autoSave": "As configurações são salvas automaticamente",
+		"groups": {
+			"general": "Geral",
+			"generalDescription": "Adapte o Trano à sua forma de trabalhar",
+			"translationWindow": "Janela de tradução",
+			"translationWindowDescription": "Ajuste quando e onde os resultados aparecem",
+			"smartExperience": "Experiência inteligente",
+			"smartExperienceDescription": "Torne a tradução mais natural"
+		},
+		"items": {
+			"language": "Idioma da interface",
+			"languageHint": "Escolha o idioma usado pelo aplicativo",
+			"launchAtLogin": "Iniciar ao fazer login",
+			"launchAtLoginHint": "Inicie o Trano automaticamente após o login",
+			"autoUpdate": "Verificar atualizações automaticamente",
+			"autoUpdateHint": "Receba novos recursos e correções de estabilidade",
+			"position": "Posição de exibição",
+			"positionHint": "Posição padrão das novas janelas",
+			"fontSize": "Tamanho da fonte",
+			"fontSizeHint": "Deixe o texto traduzido mais fácil de ler",
+			"smartTranslate": "Detectar idioma automaticamente",
+			"smartTranslateHint": "Identifique automaticamente o idioma original"
+		},
+		"options": {
+			"default": "Seguir o sistema",
+			"zhCN": "Chinês simplificado",
+			"en": "Inglês",
+			"ja": "Japonês",
+			"ko": "Coreano",
+			"fr": "Francês",
+			"es": "Espanhol",
+			"de": "Alemão",
+			"pt": "Português",
+			"zhTW": "Chinês tradicional",
+			"center": "Centro da tela",
+			"last": "Última posição",
+			"cursor": "Seguir o cursor"
+		}
+	},
+	"windows": {
+		"input": "Tradução de texto",
+		"screenshot": "Tradução de captura de tela",
+		"selection": "Tradução de seleção"
+	}
+}

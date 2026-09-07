@@ -1,0 +1,60 @@
+{
+	"settings": {
+		"my": "Mi cuenta",
+		"preference": "Preferencias",
+		"record": "Historial de traducciones",
+		"source": "Fuentes de traducción",
+		"shortcut": "Atajos de teclado",
+		"network": "Red",
+		"about": "Acerca de",
+		"close": "Cerrar",
+		"minimize": "Minimizar",
+		"maximize": "Maximizar",
+		"preferenceEyebrow": "TRANO / PREFERENCE",
+		"preferenceTitle": "Preferencias",
+		"synced": "Sincronizado",
+		"autoSave": "La configuración se guarda automáticamente",
+		"groups": {
+			"general": "General",
+			"generalDescription": "Adapta Trano a tu forma de trabajar",
+			"translationWindow": "Ventana de traducción",
+			"translationWindowDescription": "Ajusta cuándo y dónde aparecen los resultados",
+			"smartExperience": "Experiencia inteligente",
+			"smartExperienceDescription": "Haz que la traducción sea más natural"
+		},
+		"items": {
+			"language": "Idioma de la interfaz",
+			"languageHint": "Elige el idioma de la aplicación",
+			"launchAtLogin": "Iniciar al acceder",
+			"launchAtLoginHint": "Inicia Trano automáticamente después de acceder",
+			"autoUpdate": "Buscar actualizaciones automáticamente",
+			"autoUpdateHint": "Recibe nuevas funciones y correcciones de estabilidad",
+			"position": "Posición de visualización",
+			"positionHint": "Posición predeterminada de las ventanas nuevas",
+			"fontSize": "Tamaño de fuente",
+			"fontSizeHint": "Haz que el texto traducido sea más fácil de leer",
+			"smartTranslate": "Detectar idioma automáticamente",
+			"smartTranslateHint": "Identifica automáticamente el idioma original"
+		},
+		"options": {
+			"default": "Seguir el sistema",
+			"zhCN": "Chino simplificado",
+			"en": "Inglés",
+			"ja": "Japonés",
+			"ko": "Coreano",
+			"fr": "Francés",
+			"es": "Español",
+			"de": "Alemán",
+			"pt": "Portugués",
+			"zhTW": "Chino tradicional",
+			"center": "Centro de la pantalla",
+			"last": "Última posición",
+			"cursor": "Seguir el cursor"
+		}
+	},
+	"windows": {
+		"input": "Traducción de texto",
+		"screenshot": "Traducción de captura",
+		"selection": "Traducción de selección"
+	}
+}

@@ -4,7 +4,7 @@
 	defineOptions({ inheritAttrs: false })
 
 	const props = defineProps<{
-		options: { label: string; value: string }[]
+		options: { label: string; value: string; flag?: string }[]
 	}>()
 
 	const model = defineModel({
@@ -68,7 +68,7 @@
 </script>
 
 <template>
-	<div ref="root" class="select">
+	<div ref="root" class="select-container" :class="{ open: isOpen }">
 		<button
 			class="select-trigger"
 			type="button"
@@ -79,7 +79,10 @@
 			@click="toggle"
 			@keydown="handleKeydown"
 		>
-			<span>{{ selectedOption?.label ?? props.options[0]?.label }}</span>
+			<span class="select-label">
+				<span v-if="selectedOption?.flag" class="select-flag" aria-hidden="true">{{ selectedOption.flag }}</span>
+				{{ selectedOption?.label ?? props.options[0]?.label }}
+			</span>
 			<i aria-hidden="true" :class="{ open: isOpen }"></i>
 		</button>
 
@@ -93,6 +96,7 @@
 					:aria-selected="option.value === model"
 					@click="selectOption(option.value)"
 				>
+					<span v-if="option.flag" class="select-flag" aria-hidden="true">{{ option.flag }}</span>
 					{{ option.label }}
 				</li>
 			</ul>
@@ -101,11 +105,11 @@
 </template>
 
 <style scoped lang="scss">
-	.select {
+	.select-container {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		min-width: 112px;
+		min-width: 160px;
 	}
 
 	.select-trigger {
@@ -113,7 +117,7 @@
 		align-items: center;
 		justify-content: space-between;
 		width: 100%;
-		min-width: 120px;
+		min-width: 160px;
 		padding: 8px 10px;
 		color: inherit;
 		font: inherit;
@@ -126,6 +130,19 @@
 		box-shadow: inset 4px 2px 8px #ffffff7e;
 		backdrop-filter: blur(10px);
 		cursor: pointer;
+	}
+
+	.select-label {
+		display: inline-flex;
+		align-items: center;
+		min-width: 0;
+	}
+
+	.select-flag {
+		flex: 0 0 auto;
+		margin-right: 6px;
+		font-size: 14px;
+		line-height: 1;
 	}
 
 	.select-trigger:focus-visible {
@@ -149,7 +166,7 @@
 
 	.select-menu {
 		position: absolute;
-		z-index: 10;
+		z-index: 100;
 		left: 0;
 		top: calc(100% + 6px);
 		display: grid;
@@ -158,14 +175,18 @@
 		padding: 4px;
 		margin: 0;
 		list-style: none;
-		background-color: #ffffff1d;
+		background-color: #ffffff42;
 		border: 1px solid #ffffff89;
-		box-shadow: inset 4px 2px 8px #ffffff7e;
-		backdrop-filter: blur(100px);
+		box-shadow: inset 4px 2px 8px #ffffff98;
+		backdrop-filter: blur(10px);
 		border-radius: 8px;
+		max-height: 180px;
+		overflow-y: auto;
 	}
 
 	.select-menu li {
+		display: flex;
+		align-items: center;
 		padding: 8px;
 		border-radius: 5px;
 		font-size: 12px;
@@ -187,13 +208,13 @@
 	.dropdown-enter-active,
 	.dropdown-leave-active {
 		transition:
-			opacity 0.16s ease,
-			transform 0.16s ease;
+			opacity 0.3s ease,
+			transform 0.3s ease;
 	}
 
 	.dropdown-enter-from,
 	.dropdown-leave-to {
 		opacity: 0;
-		transform: translateY(-10px);
+		transform: translateY(-20px);
 	}
 </style>
