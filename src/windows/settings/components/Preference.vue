@@ -4,17 +4,22 @@
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
+	import Switch from '@components/base/Switch.vue'
+	import Select from '@components/base/Select.vue'
+	import Slider from '@components/base/Slider.vue'
+	import type { Menus } from '@windows/settings/components/types'
 
 	const state = reactive({
-		language: '跟随系统',
+		language: 'default',
 		launchAtLogin: true,
 		autoUpdate: true,
-		position: '屏幕右下角',
+		position: 'center',
 		fontSize: 16,
 		smartTranslate: true,
 	})
+	type PreferenceState = typeof state
 
-	const menus = [
+	const menus: Array<Menus<PreferenceState>> = [
 		{
 			title: '通用',
 			description: '让 Trano 更贴合你的工作习惯',
@@ -25,7 +30,11 @@
 					hint: '选择应用显示语言',
 					type: 'select',
 					key: 'language',
-					options: ['跟随系统', '简体中文', 'English'],
+					options: [
+						{ label: '跟随系统', value: 'default' },
+						{ label: '简体中文', value: 'zh-CN' },
+						{ label: 'English', value: 'en' },
+					],
 				},
 				{ label: '开机自启', hint: '登录后自动启动 Trano', type: 'switch', key: 'launchAtLogin' },
 				{ label: '自动检查更新', hint: '及时获取新功能与稳定性修复', type: 'switch', key: 'autoUpdate' },
@@ -41,9 +50,13 @@
 					hint: '新窗口默认出现的位置',
 					type: 'select',
 					key: 'position',
-					options: ['居中屏幕', '上一次位置', '跟隨鼠标'],
+					options: [
+						{ label: '居中屏幕', value: 'center' },
+						{ label: '上一次位置', value: 'last' },
+						{ label: '跟随鼠标', value: 'cursor' },
+					],
 				},
-				{ label: '字体大小', hint: '让译文更易读', type: 'range', key: 'fontSize' },
+				{ label: '字体大小', hint: '让译文更易读', type: 'slider', key: 'fontSize' },
 			],
 		},
 		{
@@ -80,7 +93,18 @@
 							<strong>{{ item.label }}</strong>
 							<span>{{ item.hint }}</span>
 						</div>
-						<div>1</div>
+						<div>
+							<Switch v-if="item.type === 'switch'" v-model="state[item.key]" />
+							<Select v-else-if="item.type === 'select'" v-model="state[item.key]" :options="item.options" />
+							<Slider
+								v-else-if="item.type === 'slider'"
+								v-model="state[item.key]"
+								:min="12"
+								:max="28"
+								:step="1"
+								value-template="{value}px"
+							/>
+						</div>
 					</li>
 				</ul>
 			</section>

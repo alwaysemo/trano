@@ -114,7 +114,6 @@
 	.module-menus-container {
 		margin-top: 8px;
 		border-radius: 12px;
-		overflow: hidden;
 		background-color: #ffffff1d;
 		border: 1px solid #ffffff89;
 		box-shadow: inset 4px 2px 8px #ffffff7e;
@@ -125,6 +124,12 @@
 			justify-content: space-between;
 			padding: 12px;
 			transition: all 0.3s;
+			&:first-child {
+				border-radius: 12px 12px 0 0;
+			}
+			&:last-child {
+				border-radius: 0 0 12px 12px;
+			}
 			&:not(:last-child) {
 				border-bottom: 1px solid #ffffff89;
 			}
