@@ -1,13 +1,15 @@
 <script setup lang="ts">
 	import { useI18n } from 'vue-i18n'
+	import Toast from '@/components/base/Toast.vue'
 
 	const { t } = useI18n()
 </script>
 
 <template>
-    <main>
+	<main>
 		{{ t('windows.input') }}
-    </main>
+	</main>
+	<Toast />
 </template>
 
 <style scoped lang="scss">

@@ -13,6 +13,10 @@
 		"preferenceEyebrow": "TRANO / PREFERENCE",
 		"preferenceTitle": "環境設定",
 		"synced": "同期済み",
+		"updateFound": "新しいバージョンがあります：v{version}",
+		"upToDate": "最新バージョンを使用しています",
+		"updateCheckFailed": "更新の確認に失敗しました。後でもう一度お試しください",
+		"updateInstallFailed": "更新のインストールに失敗しました。後でもう一度お試しください",
 		"autoSave": "設定は自動的に保存されます",
 		"groups": {
 			"general": "一般",

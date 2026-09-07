@@ -13,6 +13,10 @@
 		"preferenceEyebrow": "TRANO / PREFERENCE",
 		"preferenceTitle": "환경 설정",
 		"synced": "동기화됨",
+		"updateFound": "새 버전이 있습니다: v{version}",
+		"upToDate": "최신 버전을 사용하고 있습니다",
+		"updateCheckFailed": "업데이트 확인에 실패했습니다. 나중에 다시 시도해 주세요",
+		"updateInstallFailed": "업데이트 설치에 실패했습니다. 나중에 다시 시도해 주세요",
 		"autoSave": "설정이 자동으로 저장됩니다",
 		"groups": {
 			"general": "일반",

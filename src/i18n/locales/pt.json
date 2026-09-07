@@ -13,6 +13,10 @@
 		"preferenceEyebrow": "TRANO / PREFERENCE",
 		"preferenceTitle": "Preferências",
 		"synced": "Sincronizado",
+		"updateFound": "Atualização disponível: v{version}",
+		"upToDate": "Você está usando a versão mais recente",
+		"updateCheckFailed": "Falha ao verificar atualizações. Tente novamente mais tarde",
+		"updateInstallFailed": "Falha ao instalar a atualização. Tente novamente mais tarde",
 		"autoSave": "As configurações são salvas automaticamente",
 		"groups": {
 			"general": "Geral",

@@ -3,6 +3,7 @@ use tauri::{
     tray::TrayIconBuilder,
     Manager, WebviewUrl, WebviewWindowBuilder,
 };
+use tauri_plugin_autostart::MacosLauncher;
 
 /// 拦截窗口关闭事件：不销毁窗口，而是隐藏，
 /// 这样托盘菜单才能随时把同一个窗口重新唤出
@@ -47,6 +48,12 @@ pub fn run() {
     tauri::Builder::default()
         // Tauri 插件
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec![]),
+        ))
+        .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .setup(|app| {
             // ==========================
             // 创建托盘菜单
