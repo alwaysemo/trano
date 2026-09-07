@@ -182,6 +182,7 @@
 		border-radius: 8px;
 		max-height: 180px;
 		overflow-y: auto;
+		overscroll-behavior: contain;
 	}
 
 	.select-menu li {
