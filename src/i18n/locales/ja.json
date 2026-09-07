@@ -32,6 +32,8 @@
 			"launchAtLogin": "ログイン時に起動",
 			"launchAtLoginHint": "ログイン後にTranoを自動的に起動します",
 			"autoUpdate": "自動で更新を確認",
+			"showInDock": "Dock/タスクバーにアイコンを表示",
+			"showInDockHint": "システムのDockまたはタスクバーにTranoを表示します",
 			"autoUpdateHint": "新機能と安定性の修正をすぐに受け取ります",
 			"position": "表示位置",
 			"positionHint": "新しいウィンドウを表示する既定の位置です",

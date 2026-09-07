@@ -37,6 +37,8 @@
 			"launchAtLogin": "開機自動啟動",
 			"launchAtLoginHint": "登入後自動啟動 Trano",
 			"autoUpdate": "自動檢查更新",
+			"showInDock": "在 Dock/工作列中顯示圖示",
+			"showInDockHint": "控制應用程式是否顯示在系統 Dock 或工作列中",
 			"autoUpdateHint": "及時取得新功能與穩定性修正",
 			"position": "顯示位置",
 			"positionHint": "新視窗預設出現的位置",

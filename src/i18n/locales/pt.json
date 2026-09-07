@@ -32,6 +32,8 @@
 			"launchAtLogin": "Iniciar ao fazer login",
 			"launchAtLoginHint": "Inicie o Trano automaticamente após o login",
 			"autoUpdate": "Verificar atualizações automaticamente",
+			"showInDock": "Mostrar ícone no Dock/barra de tarefas",
+			"showInDockHint": "Mostrar o Trano no Dock ou na barra de tarefas",
 			"autoUpdateHint": "Receba novos recursos e correções de estabilidade",
 			"position": "Posição de exibição",
 			"positionHint": "Posição padrão das novas janelas",

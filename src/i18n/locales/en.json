@@ -40,6 +40,8 @@
 			"launchAtLoginHint": "Start Trano automatically after login",
 			"autoUpdate": "Check for updates automatically",
 			"autoUpdateHint": "Get new features and stability fixes promptly",
+			"showInDock": "Show icon in Dock/taskbar",
+			"showInDockHint": "Show Trano in the system Dock or taskbar",
 			"position": "Display position",
 			"positionHint": "Where new windows appear by default",
 			"fontSize": "Font size",

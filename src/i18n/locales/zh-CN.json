@@ -39,6 +39,8 @@
 			"launchAtLoginHint": "登录后自动启动 Trano",
 			"autoUpdate": "自动检查更新",
 			"autoUpdateHint": "及时获取新功能与稳定性修复",
+			"showInDock": "在程序坞/任务栏中显示图标",
+			"showInDockHint": "控制应用是否显示在系统程序坞或任务栏中",
 			"position": "显示位置",
 			"positionHint": "新窗口默认出现的位置",
 			"fontSize": "字体大小",

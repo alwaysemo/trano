@@ -48,7 +48,11 @@ fn show_window(app: &tauri::AppHandle, label: &str) -> tauri::Result<()> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![config::load_preferences, config::save_preferences])
+        .invoke_handler(tauri::generate_handler![
+            config::load_preferences,
+            config::save_preferences,
+            config::set_icon_visibility
+        ])
         // Tauri 插件
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_autostart::init(
@@ -58,6 +62,9 @@ pub fn run() {
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .setup(|app| {
+            let preferences = config::load_preferences(app.handle().clone())?;
+            config::apply_icon_visibility(app.handle(), preferences.show_in_dock)?;
+
             // ==========================
             // 创建托盘菜单
             // ==========================

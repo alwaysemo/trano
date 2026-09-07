@@ -32,6 +32,8 @@
 			"launchAtLogin": "Lancer à la connexion",
 			"launchAtLoginHint": "Démarrer Trano automatiquement après la connexion",
 			"autoUpdate": "Rechercher automatiquement les mises à jour",
+			"showInDock": "Afficher l’icône dans le Dock/barre des tâches",
+			"showInDockHint": "Afficher Trano dans le Dock ou la barre des tâches",
 			"autoUpdateHint": "Recevez rapidement les nouveautés et correctifs de stabilité",
 			"position": "Position d’affichage",
 			"positionHint": "Position par défaut des nouvelles fenêtres",

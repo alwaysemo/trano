@@ -32,6 +32,8 @@
 			"launchAtLogin": "Beim Anmelden starten",
 			"launchAtLoginHint": "Trano nach der Anmeldung automatisch starten",
 			"autoUpdate": "Automatisch nach Updates suchen",
+			"showInDock": "Symbol im Dock/in der Taskleiste anzeigen",
+			"showInDockHint": "Trano im System-Dock oder in der Taskleiste anzeigen",
 			"autoUpdateHint": "Neue Funktionen und Stabilitätsverbesserungen erhalten",
 			"position": "Anzeigeposition",
 			"positionHint": "Standardposition neuer Fenster",

@@ -9,6 +9,7 @@ const SETTINGS_FILE_NAME: &str = "settings.json";
 pub struct Preferences {
     pub language: String,
     pub auto_update: bool,
+    pub show_in_dock: bool,
     pub position: String,
     pub font_size: u8,
     pub smart_translate: bool,
@@ -19,11 +20,35 @@ impl Default for Preferences {
         Self {
             language: "default".to_string(),
             auto_update: true,
+            show_in_dock: true,
             position: "center".to_string(),
             font_size: 16,
             smart_translate: true,
         }
     }
+}
+
+pub fn apply_icon_visibility(app: &AppHandle, show: bool) -> Result<(), String> {
+    #[cfg(target_os = "macos")]
+    {
+        app.set_dock_visibility(show).map_err(|error| error.to_string())?;
+    }
+
+    #[cfg(not(target_os = "macos"))]
+    {
+        for window in app.webview_windows().values() {
+            window
+                .set_skip_taskbar(!show)
+                .map_err(|error| error.to_string())?;
+        }
+    }
+
+    Ok(())
+}
+
+#[tauri::command]
+pub fn set_icon_visibility(app: AppHandle, show: bool) -> Result<(), String> {
+    apply_icon_visibility(&app, show)
 }
 
 fn settings_path(app: &AppHandle) -> Result<std::path::PathBuf, String> {

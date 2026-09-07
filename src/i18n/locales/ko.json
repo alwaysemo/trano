@@ -32,6 +32,8 @@
 			"launchAtLogin": "로그인 시 실행",
 			"launchAtLoginHint": "로그인 후 Trano를 자동으로 시작합니다",
 			"autoUpdate": "자동으로 업데이트 확인",
+			"showInDock": "Dock/작업 표시줄에 아이콘 표시",
+			"showInDockHint": "시스템 Dock 또는 작업 표시줄에 Trano를 표시합니다",
 			"autoUpdateHint": "새 기능과 안정성 개선을 빠르게 받습니다",
 			"position": "표시 위치",
 			"positionHint": "새 창이 기본으로 표시될 위치입니다",

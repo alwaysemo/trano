@@ -26,6 +26,7 @@
 		language: getLocalePreference() as LocalePreference,
 		launchAtLogin: false,
 		autoUpdate: true,
+		showInDock: true,
 		position: 'center',
 		fontSize: 16,
 		smartTranslate: true,
@@ -45,6 +46,7 @@
 		const preferences = await invoke<{
 			language: LocalePreference
 			auto_update: boolean
+			show_in_dock: boolean
 			position: string
 			font_size: number
 			smart_translate: boolean
@@ -52,6 +54,7 @@
 
 		state.language = preferences.language
 		state.autoUpdate = preferences.auto_update
+		state.showInDock = preferences.show_in_dock
 		state.position = preferences.position
 		state.fontSize = preferences.font_size
 		state.smartTranslate = preferences.smart_translate
@@ -65,6 +68,7 @@
 				preferences: {
 					language: state.language,
 					auto_update: state.autoUpdate,
+					show_in_dock: state.showInDock,
 					position: state.position,
 					font_size: state.fontSize,
 					smart_translate: state.smartTranslate,
@@ -172,6 +176,12 @@
 					type: 'switch',
 					key: 'autoUpdate',
 				},
+				{
+					label: t('settings.items.showInDock'),
+					hint: t('settings.items.showInDockHint'),
+					type: 'switch',
+					key: 'showInDock',
+				},
 			],
 		},
 		{
@@ -245,6 +255,14 @@
 				availableUpdate.value = null
 				updateVersion.value = null
 			}
+		},
+	)
+
+	watch(
+		() => state.showInDock,
+		(show) => {
+			if (isLoading) return
+			void invoke('set_icon_visibility', { show }).catch((error) => console.error('更新程序坞/任务栏图标设置失败:', error))
 		},
 	)
 
