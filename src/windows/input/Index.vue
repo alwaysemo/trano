@@ -9,6 +9,7 @@
 		{{ t('windows.input') }}
 	</main>
 	<BaseToast />
+	<BaseModal />
 </template>
 
 <style scoped lang="scss">

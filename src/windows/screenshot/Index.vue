@@ -7,4 +7,5 @@
 <template>
 	<main>{{ t('windows.screenshot') }}</main>
 	<BaseToast />
+	<BaseModal />
 </template>

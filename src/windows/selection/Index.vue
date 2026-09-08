@@ -7,4 +7,5 @@
 <template>
 	<main>{{ t('windows.selection') }}</main>
 	<BaseToast />
+	<BaseModal />
 </template>
