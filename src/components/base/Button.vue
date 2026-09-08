@@ -26,13 +26,13 @@
 		align-items: center;
 		justify-content: center;
 		gap: 5px;
-		padding: 5px 10px;
+		padding: 6px 10px;
 		border: $glass-border;
-		border-radius: 99px;
+		border-radius: 100px;
 		background: #ffffff45;
 		box-shadow: inset 1px 1px 3px #ffffff70;
 		color: #9d5efb;
-		font-size: 10px;
+		font-size: 12px;
 		cursor: pointer;
 		transition:
 			background-color 0.2s,
