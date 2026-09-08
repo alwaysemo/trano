@@ -48,7 +48,7 @@
 					<IconifyAlertCircle v-else-if="item.type === 'error' || item.type === 'warning'" class="toast-icon" />
 					<IconifyInfo v-else class="toast-icon" />
 					<span class="toast-message">{{ item.message }}</span>
-					<button class="toast-close" type="button" aria-label="关闭提示" @click="dismiss(item.id)">
+					<button class="toast-close" type="button" :aria-label="$t('common.closeToast')" @click="dismiss(item.id)">
 						<IconifyX />
 					</button>
 					<span

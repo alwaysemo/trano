@@ -1,7 +1,10 @@
 <script setup lang="ts">
 	import { computed, nextTick, onBeforeUnmount, watch } from 'vue'
+	import { useI18n } from 'vue-i18n'
 	import IconifyX from '@iconify-vue/lucide/x'
 	import { modal } from '@components/base/Modal/modal'
+
+	const { t } = useI18n()
 
 	const emit = defineEmits<{
 		'update:modelValue': [value: boolean]
@@ -88,7 +91,7 @@
 				>
 					<header v-if="currentTitle || currentClosable" class="modal-header">
 						<h2 v-if="currentTitle" class="modal-title">{{ currentTitle }}</h2>
-						<button v-if="currentClosable" class="modal-close" type="button" aria-label="关闭对话框" @click="close">
+						<button v-if="currentClosable" class="modal-close" type="button" :aria-label="t('common.closeDialog')" @click="close">
 							<IconifyX class="iconify" />
 						</button>
 					</header>

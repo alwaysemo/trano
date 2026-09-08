@@ -1,4 +1,7 @@
 import { reactive } from 'vue'
+import { i18n } from '@/i18n'
+
+const translate = (key: string, fallback: string) => (i18n.global.te(key) ? i18n.global.t(key) : fallback)
 
 export interface ModalOptions {
 	title?: string
@@ -38,13 +41,13 @@ function show(optionsOrContent: string | ModalOptions): Promise<boolean> {
 		state.item = {
 			id: nextId++,
 			content: options.content,
-			title: options.title ?? '提示',
+			title: options.title ?? translate('common.prompt', 'Prompt'),
 			width: options.width ?? '420px',
 			closable: options.closable ?? true,
 			maskClosable: options.maskClosable ?? true,
 			showCancel: options.showCancel ?? false,
-			confirmText: options.confirmText ?? '确定',
-			cancelText: options.cancelText ?? '取消',
+			confirmText: options.confirmText ?? translate('common.ok', 'OK'),
+			cancelText: options.cancelText ?? translate('common.cancel', 'Cancel'),
 			resolve,
 		}
 	})
@@ -53,7 +56,7 @@ function show(optionsOrContent: string | ModalOptions): Promise<boolean> {
 export const modal = {
 	state,
 	show,
-	confirm: (content: string, title = '请确认') => show({ content, title, showCancel: true }),
-	alert: (content: string, title = '提示') => show({ content, title }),
+	confirm: (content: string, title = translate('common.confirm', 'Please confirm')) => show({ content, title, showCancel: true }),
+	alert: (content: string, title = translate('common.prompt', 'Prompt')) => show({ content, title }),
 	close,
 }

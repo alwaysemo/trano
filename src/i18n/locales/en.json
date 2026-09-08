@@ -1,4 +1,12 @@
 {
+	"common": {
+		"prompt": "Prompt",
+		"confirm": "Please confirm",
+		"ok": "OK",
+		"cancel": "Cancel",
+		"closeDialog": "Close dialog",
+		"closeToast": "Close notification"
+	},
 	"settings": {
 		"my": "My account",
 		"preference": "Preferences",
@@ -12,7 +20,6 @@
 		"maximize": "Maximize",
 		"preferenceEyebrow": "TRANO / PREFERENCE",
 		"preferenceTitle": "Preferences",
-		"synced": "Synced",
 		"updated": "Updated",
 		"saved": "Saved",
 		"updateAvailable": "Update available: v{version}",
@@ -63,7 +70,21 @@
 			"center": "Center of screen",
 			"last": "Previous position",
 			"cursor": "Follow cursor"
-		}
+		},
+		"sourceSaved": "Saved",
+		"sourceBuiltInHint": "Built-in translation source - no setup required",
+		"sourceName": "Name",
+		"sourceAppId": "App ID",
+		"sourceAppKey": "App key",
+		"sourcePlaceholderName": "Enter translation source name",
+		"sourcePlaceholderAppId": "Enter App ID",
+		"sourcePlaceholderAppKey": "Enter App key",
+		"sourceCustomHint": "Custom translation source - please complete the configuration",
+		"sourceValidate": "Validate",
+		"sourceAdd": "Add translation source",
+		"sourceBing": "Bing Translate",
+		"sourceGoogle": "Google Translate",
+		"sourceBaidu": "Baidu Translate"
 	},
 	"windows": {
 		"input": "Text translation",

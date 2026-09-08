@@ -148,7 +148,7 @@
 	}
 
 	.select-trigger:focus-visible {
-		outline: 1px solid #1479ff;
+		outline: 1px solid #9d5efb;
 		outline-offset: 1px;
 	}
 

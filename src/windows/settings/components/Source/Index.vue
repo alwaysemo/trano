@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { useI18n } from 'vue-i18n'
-	import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+	import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 	import { createSwapy, type Swapy } from 'swapy'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
 	import IconifyPlus from '@iconify-vue/lucide/plus'
@@ -28,44 +28,54 @@
 		{
 			key: '1',
 			type: 'Bing',
-			name: 'Bing翻译',
+			name: t('settings.sourceBing'),
 			icon: SvgBing,
-			hint: '内置翻译源 - 无需配置',
-			options: [{ name: '名称', key: 'name', type: 'input', placeholder: '请输入翻译源名称' }],
+			hint: t('settings.sourceBuiltInHint'),
+			options: [{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') }],
 		},
 		{
 			key: '2',
 			type: 'Google',
-			name: 'Google翻译',
+			name: t('settings.sourceGoogle'),
 			icon: SvgGoogle,
-			hint: '内置翻译源 - 无需配置',
-			options: [{ name: '名称', key: 'name', type: 'input', placeholder: '请输入翻译源名称' }],
+			hint: t('settings.sourceBuiltInHint'),
+			options: [{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') }],
 		},
 		{
 			key: '3',
 			type: 'Baidu',
-			name: 'Baidu翻译',
+			name: t('settings.sourceBaidu'),
 			icon: SvgBaidu,
 			options: [
-				{ name: '名称', key: 'name', type: 'input', placeholder: '请输入翻译源名称' },
-				{ name: 'AppID', key: 'appid', type: 'input', placeholder: '请输入AppId' },
-				{ name: 'AppKey', key: 'appkey', type: 'input', placeholder: '请输入AppKey' },
+				{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') },
+				{ name: t('settings.sourceAppId'), key: 'appid', type: 'input', placeholder: t('settings.sourcePlaceholderAppId') },
+				{ name: t('settings.sourceAppKey'), key: 'appkey', type: 'input', placeholder: t('settings.sourcePlaceholderAppKey') },
 			],
 		},
 	])
 
 	const selected = ref<Source>(list.value[0])
-	const sourceProviders = list.value.map((source) => ({
-		...source,
-		options: source.options.map((option) => ({ ...option })),
-	}))
+	watch(
+		() => list.value,
+		(providers) => {
+			const currentKey = selected.value?.key
+			selected.value = providers.find((provider) => provider.key === currentKey) ?? providers[0]
+		},
+		{ immediate: true },
+	)
+	const sourceProviders = computed(() =>
+		list.value.map((source) => ({
+			...source,
+			options: source.options.map((option) => ({ ...option })),
+		})),
+	)
 	const showProviderPicker = ref(false)
 	const values = reactive<Record<string, Record<string, string>>>({
-		1: { name: 'Bing翻译' },
-		2: { name: 'Google翻译' },
-		3: { name: 'Baidu翻译', appid: '', appkey: '' },
+		1: { name: t('settings.sourceBing') },
+		2: { name: t('settings.sourceGoogle') },
+		3: { name: t('settings.sourceBaidu'), appid: '', appkey: '' },
 	})
-	const selectedValues = computed(() => values[selected.value.key])
+	const selectedValues = computed(() => values[selected.value.key] ?? {})
 	let customSourceNumber = 1
 
 	const selectSource = (source: Source) => {
@@ -99,6 +109,7 @@
 
 	const removeSource = async () => {
 		if (list.value.length === 1) return
+		if (!selected.value) return
 
 		const index = list.value.findIndex((source) => source.key === selected.value.key)
 		if (index === -1) return
@@ -118,7 +129,7 @@
 				<p>TRANO / SOURCE</p>
 				<h1>{{ t('settings.source') }}</h1>
 			</div>
-			<span class="status-mark" data-status="warning">已保存</span>
+			<span class="status-mark" data-status="warning">{{ t('settings.sourceSaved') }}</span>
 		</div>
 
 		<div class="module-main-container">
@@ -146,7 +157,7 @@
 				<div class="source-config-header">
 					<div>
 						<h2>{{ selected.name }}</h2>
-						<p>{{ selected.hint ?? '自定义翻译源 - 请完成配置' }}</p>
+						<p>{{ selected.hint ?? t('settings.sourceCustomHint') }}</p>
 					</div>
 					<img :src="selected.icon" :alt="selected.type" />
 				</div>
@@ -161,12 +172,12 @@
 					</label>
 				</div>
 				<div class="source-config-footer">
-					<BaseButton>验证</BaseButton>
+					<BaseButton>{{ t('settings.sourceValidate') }}</BaseButton>
 				</div>
 			</div>
 		</div>
 
-		<BaseModal v-model="showProviderPicker" title="添加翻译源" width="420px">
+		<BaseModal v-model="showProviderPicker" :title="t('settings.sourceAdd')" width="420px">
 			<div class="provider-picker-list">
 				<button v-for="provider in sourceProviders" :key="provider.key" type="button" @click="addSource(provider)">
 					<img :src="provider.icon" :alt="provider.type" />
