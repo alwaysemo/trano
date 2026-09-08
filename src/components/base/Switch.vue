@@ -19,6 +19,7 @@
 		position: relative;
 		display: inline-block;
 		width: 50px;
+		min-width: 50px;
 		height: 26px;
 	}
 

@@ -32,7 +32,7 @@
 		}
 
 		&:focus-visible {
-			border: 1px solid #9d5efb;
+			border: 1px solid $color-primary;
 		}
 
 		&:disabled {

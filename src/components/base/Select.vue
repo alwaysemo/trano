@@ -106,6 +106,7 @@
 
 <style scoped lang="scss">
 	@use '@assets/styles/variable.scss' as *;
+
 	.select-container {
 		position: relative;
 		display: inline-flex;
@@ -148,7 +149,7 @@
 	}
 
 	.select-trigger:focus-visible {
-		outline: 1px solid #9d5efb;
+		outline: 1px solid $color-primary;
 		outline-offset: 1px;
 	}
 
@@ -178,6 +179,7 @@
 		margin: 0;
 		list-style: none;
 		@include glass-effect;
+		background-color: #ffffffc7;
 		border-radius: 8px;
 		max-height: 180px;
 		overflow-y: auto;
@@ -201,7 +203,7 @@
 	}
 
 	.select-menu li.selected {
-		color: #47c464;
+		color: $color-primary;
 		font-weight: 600;
 	}
 

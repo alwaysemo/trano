@@ -31,7 +31,7 @@
 		border-radius: 100px;
 		background: #ffffff45;
 		box-shadow: inset 1px 1px 3px #ffffff70;
-		color: #9d5efb;
+		color: $color-primary;
 		font-size: 12px;
 		cursor: pointer;
 		transition:
