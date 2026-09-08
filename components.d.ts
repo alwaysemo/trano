@@ -12,6 +12,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseButton: typeof import('./src/components/base/Button.vue')['default']
+    BaseInput: typeof import('./src/components/base/Input.vue')['default']
     BaseSelect: typeof import('./src/components/base/Select.vue')['default']
     BaseSlider: typeof import('./src/components/base/Slider.vue')['default']
     BaseSwitch: typeof import('./src/components/base/Switch.vue')['default']
