@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { useI18n } from 'vue-i18n'
+	import IconifySave from '@iconify-vue/lucide/save'
 
 	const { t } = useI18n()
 </script>
