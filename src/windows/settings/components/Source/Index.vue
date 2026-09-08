@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useI18n } from 'vue-i18n'
-	import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
-	import { createSwapy, type SlotItemMapArray, type Swapy, type SwapEvent } from 'swapy'
+	import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
+	import { createSwapy, type Swapy } from 'swapy'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
 	import IconifyPlus from '@iconify-vue/lucide/plus'
 	import SvgBing from '@assets/svg/bing.svg'
@@ -55,15 +55,59 @@
 	])
 
 	const selected = ref<Source>(list.value[0])
+	const sourceProviders = list.value.map((source) => ({
+		...source,
+		options: source.options.map((option) => ({ ...option })),
+	}))
+	const showProviderPicker = ref(false)
 	const values = reactive<Record<string, Record<string, string>>>({
-		Bing: { name: 'Bing翻译' },
-		Google: { name: 'Google翻译' },
-		Baidu: { name: 'Baidu翻译', appid: '', appkey: '' },
+		1: { name: 'Bing翻译' },
+		2: { name: 'Google翻译' },
+		3: { name: 'Baidu翻译', appid: '', appkey: '' },
 	})
-	const selectedValues = computed(() => values[selected.value.type])
+	const selectedValues = computed(() => values[selected.value.key])
+	let customSourceNumber = 1
 
 	const selectSource = (source: Source) => {
 		selected.value = source
+	}
+
+	const addSource = async (provider: Source) => {
+		const key = `custom-${customSourceNumber++}`
+		const source: Source = {
+			key,
+			type: `${provider.type}-${customSourceNumber - 1}`,
+			name: provider.name,
+			icon: provider.icon,
+			hint: provider.hint,
+			options: provider.options.map((option) => ({ ...option })),
+		}
+
+		list.value.push(source)
+		values[source.key] = Object.fromEntries(
+			source.options.map((option) => [option.key, option.key === 'name' ? source.name : '']),
+		)
+		selected.value = source
+		showProviderPicker.value = false
+		await nextTick()
+		swapy.value?.update()
+	}
+
+	const openProviderPicker = () => {
+		showProviderPicker.value = true
+	}
+
+	const removeSource = async () => {
+		if (list.value.length === 1) return
+
+		const index = list.value.findIndex((source) => source.key === selected.value.key)
+		if (index === -1) return
+
+		const [removed] = list.value.splice(index, 1)
+		delete values[removed.key]
+		selected.value = list.value[Math.min(index, list.value.length - 1)]
+		await nextTick()
+		swapy.value?.update()
 	}
 </script>
 
@@ -90,10 +134,10 @@
 					</ul>
 				</div>
 				<div class="source-footer-container">
-					<BaseButton>
+					<BaseButton :disabled="list.length === 1" @click="removeSource">
 						<IconifyMinus class="iconify" />
 					</BaseButton>
-					<BaseButton>
+					<BaseButton @click="openProviderPicker">
 						<IconifyPlus class="iconify" />
 					</BaseButton>
 				</div>
@@ -106,7 +150,7 @@
 					</div>
 					<img :src="selected.icon" :alt="selected.type" />
 				</div>
-				<div class="source-options-container">
+				<div class="source-config-main">
 					<label v-for="item in selected.options" :key="item.key">
 						<span>{{ item.name }}</span>
 						<BaseInput
@@ -115,13 +159,21 @@
 							:placeholder="item.placeholder"
 						/>
 					</label>
-
-					<div>
-						<BaseButton>验证</BaseButton>
-					</div>
+				</div>
+				<div class="source-config-footer">
+					<BaseButton>验证</BaseButton>
 				</div>
 			</div>
 		</div>
+
+		<BaseModal v-model="showProviderPicker" title="添加翻译源" width="420px">
+			<div class="provider-picker-list">
+				<button v-for="provider in sourceProviders" :key="provider.key" type="button" @click="addSource(provider)">
+					<img :src="provider.icon" :alt="provider.type" />
+					<span>{{ provider.name }}</span>
+				</button>
+			</div>
+		</BaseModal>
 	</div>
 </template>
 
@@ -143,10 +195,10 @@
 			display: grid;
 			grid-template-rows: 1fr 50px;
 			.source-main-container {
-				padding: 10px;
 				ul {
 					position: relative;
 					z-index: 2;
+					padding: 10px;
 					display: flex;
 					flex-direction: column;
 					gap: 6px;
@@ -224,7 +276,7 @@
 					border-radius: 10px;
 				}
 			}
-			.source-options-container {
+			.source-config-main {
 				display: grid;
 				gap: 14px;
 				padding-top: 20px;
@@ -238,6 +290,46 @@
 						text-align: right;
 					}
 				}
+			}
+			.source-config-footer {
+				margin-top: 20px;
+				text-align: right;
+			}
+		}
+	}
+
+	.provider-picker-list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+
+		button {
+			display: grid;
+			place-items: center;
+			gap: 8px;
+			padding: 14px 8px;
+			border: 1px solid transparent;
+			border-radius: 8px;
+			background: #ffffff24;
+			color: inherit;
+			font: inherit;
+			font-size: 12px;
+			cursor: pointer;
+			transition:
+				background-color 0.2s,
+				border-color 0.2s;
+
+			&:hover {
+				border-color: #ffffffb8;
+				background: #ffffff52;
+			}
+
+			img {
+				width: 34px;
+				height: 34px;
+				padding: 7px;
+				@include glass-effect;
+				border-radius: 8px;
 			}
 		}
 	}

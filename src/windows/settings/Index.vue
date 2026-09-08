@@ -106,6 +106,7 @@
 		</section>
 	</div>
 	<BaseToast />
+	<BaseModal />
 </template>
 
 <style lang="scss" scoped>
