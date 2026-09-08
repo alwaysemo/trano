@@ -3,9 +3,9 @@
 	import { ref } from 'vue'
 	import IconifyMinus from '@iconify-vue/lucide/minus'
 	import IconifyPlus from '@iconify-vue/lucide/plus'
-	import Button from '@components/base/Button.vue'
 	import SvgBing from '@assets/svg/bing.svg'
 	import SvgGoogle from '@assets/svg/googlefanyi.svg'
+	import SvgBaidu from '@assets/svg/baidufanyi.svg'
 
 	const { t } = useI18n()
 
@@ -20,6 +20,12 @@
 			type: 'Google',
 			name: 'Google翻译',
 			icon: SvgGoogle,
+			hint: '内置翻译源 - 无需配置',
+		},
+		{
+			type: 'Baidu',
+			name: 'Baidu翻译',
+			icon: SvgBaidu,
 			hint: '内置翻译源 - 无需配置',
 		},
 	])
@@ -46,12 +52,12 @@
 					</ul>
 				</div>
 				<div class="source-footer-container">
-					<Button>
+					<BaseButton>
 						<IconifyMinus class="iconify" />
-					</Button>
-					<Button>
+					</BaseButton>
+					<BaseButton>
 						<IconifyPlus class="iconify" />
-					</Button>
+					</BaseButton>
 				</div>
 			</div>
 			<div></div>

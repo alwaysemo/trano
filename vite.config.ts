@@ -1,13 +1,15 @@
 import { fileURLToPath, URL } from 'node:url'
+import process from 'node:process'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import viteComponents from 'unplugin-vue-components/vite'
 
 const host: string = process.env.TAURI_DEV_HOST || 'localhost'
 const port: number = Number(process.env.TAURI_DEV_PORT || 3000)
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-	plugins: [vue()],
+	plugins: [vue(), viteComponents({ directoryAsNamespace: true })],
 	// 防止 Vite 清除 Rust 显示的错误
 	clearScreen: false,
 

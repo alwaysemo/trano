@@ -13,10 +13,6 @@
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
-	import Button from '@components/base/Button.vue'
-	import Switch from '@components/base/Switch.vue'
-	import Select from '@components/base/Select.vue'
-	import Slider from '@components/base/Slider.vue'
 	import { toast } from '@components/base/Toast/toast'
 	import { getLocalePreference, setLocale } from '@i18n'
 
@@ -312,7 +308,7 @@
 						</div>
 						<div class="content-container">
 							<template v-if="item.key === 'autoUpdate'">
-								<Button
+								<BaseButton
 									class="check-update-button"
 									type="button"
 									:disabled="isCheckingUpdate || isInstallingUpdate"
@@ -320,8 +316,8 @@
 								>
 									<IconifyRefreshCw class="iconify" />
 									{{ t(isCheckingUpdate ? 'settings.checkingUpdates' : 'settings.checkForUpdates') }}
-								</Button>
-								<Button
+								</BaseButton>
+								<BaseButton
 									v-if="availableUpdate"
 									class="update-button"
 									type="button"
@@ -330,11 +326,11 @@
 								>
 									<IconifyDownload class="iconify" />
 									{{ t(isInstallingUpdate ? 'settings.updateInstalling' : 'settings.updateNow') }}
-								</Button>
+								</BaseButton>
 							</template>
-							<Switch v-if="item.type === 'switch'" v-model="state[item.key]" />
-							<Select v-else-if="item.type === 'select'" v-model="state[item.key]" :options="item.options" />
-							<Slider
+							<BaseSwitch v-if="item.type === 'switch'" v-model="state[item.key]" />
+							<BaseSelect v-else-if="item.type === 'select'" v-model="state[item.key]" :options="item.options" />
+							<BaseSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
 								:min="12"

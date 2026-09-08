@@ -20,7 +20,6 @@
 	import Source from './components/Source.vue'
 	import Network from './components/Network.vue'
 	import About from './components/About.vue'
-	import Toast from '@components/base/Toast/Index.vue'
 
 	const { t } = useI18n()
 
@@ -106,7 +105,7 @@
 			</main>
 		</section>
 	</div>
-	<Toast />
+	<BaseToast />
 </template>
 
 <style lang="scss" scoped>
