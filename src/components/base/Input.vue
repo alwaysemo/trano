@@ -12,7 +12,6 @@
 </template>
 
 <style scoped lang="scss">
-	@use '@assets/styles/variable.scss' as *;
 
 	.trano-input {
 		padding: 8px 10px;

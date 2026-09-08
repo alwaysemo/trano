@@ -27,6 +27,7 @@ export default defineConfig(async () => ({
 	css: {
 		preprocessorOptions: {
 			scss: {
+				additionalData: `@use "@assets/styles/variable.scss" as *;`,
 				charset: false,
 				outputStyle: 'compressed',
 				api: 'modern-compiler',

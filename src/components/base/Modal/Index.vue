@@ -115,7 +115,6 @@
 </template>
 
 <style scoped lang="scss">
-	@use '@assets/styles/variable.scss' as *;
 
 	.modal-overlay {
 		position: fixed;

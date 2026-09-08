@@ -20,7 +20,6 @@
 </template>
 
 <style scoped lang="scss">
-	@use '@assets/styles/variable.scss' as *;
 	.button-container {
 		display: inline-flex;
 		align-items: center;

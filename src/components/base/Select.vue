@@ -105,7 +105,6 @@
 </template>
 
 <style scoped lang="scss">
-	@use '@assets/styles/variable.scss' as *;
 
 	.select-container {
 		position: relative;

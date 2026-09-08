@@ -61,7 +61,6 @@
 </template>
 
 <style scoped lang="scss">
-	@use '@assets/styles/variable.scss' as *;
 	.slider-container {
 		position: relative;
 		display: flex;

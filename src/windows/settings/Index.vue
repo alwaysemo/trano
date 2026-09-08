@@ -110,7 +110,6 @@
 </template>
 
 <style lang="scss" scoped>
-	@use '@assets/styles/variable.scss' as *;
 	.header-container {
 		display: grid;
 		grid-template-columns: 100px 1fr 100px;
