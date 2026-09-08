@@ -17,7 +17,7 @@
 	import Preference from './components/Preference/Index.vue'
 	import ShortcutKey from './components/ShortcutKey.vue'
 	import Record from './components/Record.vue'
-	import Source from './components/Source.vue'
+	import Source from './components/Source/Index.vue'
 	import Network from './components/Network.vue'
 	import About from './components/About.vue'
 
