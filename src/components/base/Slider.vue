@@ -61,6 +61,7 @@
 </template>
 
 <style scoped lang="scss">
+	@use '@assets/styles/variable.scss' as *;
 	.slider-container {
 		position: relative;
 		display: flex;
@@ -79,13 +80,8 @@
 		font-size: 10px;
 		line-height: 1;
 		white-space: nowrap;
-		background: #ffffff1d;
-		border: 1px solid #ffffff89;
-		border-radius: 8px;
-		box-shadow:
-			inset 4px 2px 8px #ffffff7e,
-			2px 3px 6px #0e274140;
-		backdrop-filter: blur(20px);
+		@include glass-effect;
+		border-radius: 12px;
 		opacity: 0;
 		transform: translateX(-50%) translateY(4px) scale(0.9);
 		transition:
@@ -118,7 +114,7 @@
 			#ced4e1 calc(var(--slider-progress) + 10px),
 			#bac2d3 100%
 		);
-		border: 1px solid #ffffff89;
+		border: $glass-border;
 		border-radius: 4px;
 		box-shadow:
 			inset 1px 1px 1px #ebf2fa6b,
@@ -130,13 +126,8 @@
 		height: 18px;
 		margin-top: -6px;
 		appearance: none;
-		background: linear-gradient(180deg, #ffffff5c 0%, #ffffff6c 66%, #ffffff00 100%);
-		border: 0;
-		backdrop-filter: blur(20px);
-		border-radius: 20px;
-		box-shadow:
-			1px 1px 2px #64748535,
-			-1px -1px 2px #fcfdff4a;
+		@include glass-effect;
+		border-radius: 10px;
 		transition: transform 0.3s ease;
 	}
 

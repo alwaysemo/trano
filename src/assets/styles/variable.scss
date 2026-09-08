@@ -1,0 +1,11 @@
+$glass-background-color: #ffffff1d;
+$glass-border: 1px solid #ffffff89;
+$glass-inset-shadow: inset 4px 2px 8px #ffffff7e;
+$glass-backdrop-filter: blur(20px);
+
+@mixin glass-effect {
+	background-color: $glass-background-color;
+	border: $glass-border;
+	box-shadow: $glass-inset-shadow;
+	backdrop-filter: $glass-backdrop-filter;
+}

@@ -20,17 +20,18 @@
 </template>
 
 <style scoped lang="scss">
+	@use '@assets/styles/variable.scss' as *;
 	.button-container {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: 5px;
 		padding: 5px 10px;
-		border: 1px solid #ffffff89;
+		border: $glass-border;
 		border-radius: 99px;
 		background: #ffffff45;
 		box-shadow: inset 1px 1px 3px #ffffff70;
-		color: #147ffa;
+		color: #9d5efb;
 		font-size: 10px;
 		cursor: pointer;
 		transition:

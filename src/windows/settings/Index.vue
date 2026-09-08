@@ -14,7 +14,7 @@
 	import IconifyGlobe from '@iconify-vue/lucide/globe'
 	import IconifyUsersRound from '@iconify-vue/lucide/users-round'
 	import Mine from './components/Mine.vue'
-	import Preference from './components/Preference.vue'
+	import Preference from './components/Preference/Index.vue'
 	import ShortcutKey from './components/ShortcutKey.vue'
 	import Record from './components/Record.vue'
 	import Source from './components/Source.vue'
@@ -110,6 +110,7 @@
 </template>
 
 <style lang="scss" scoped>
+	@use '@assets/styles/variable.scss' as *;
 	.header-container {
 		display: grid;
 		grid-template-columns: 100px 1fr 100px;
@@ -219,10 +220,7 @@
 					}
 					&:hover,
 					&[data-selected='true'] {
-						background-color: #ffffff1d;
-						border: 1px solid #ffffff89;
-						box-shadow: inset 4px 2px 8px #ffffff7e;
-						backdrop-filter: blur(20px);
+						@include glass-effect;
 					}
 					.iconify {
 						width: 16px;

@@ -23,6 +23,7 @@
 </template>
 
 <style scoped lang="scss">
+	@use '@assets/styles/variable.scss' as *;
 	@use './style.scss';
 
 	.module-main-container {

@@ -1,6 +1,8 @@
 <script setup lang="ts">
-	import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+	import type { Menus } from '@windows/settings/components/Preference/types'
+	import type { LocalePreference } from '@i18n'
 	import { useI18n } from 'vue-i18n'
+	import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 	import { disable, enable, isEnabled } from '@tauri-apps/plugin-autostart'
 	import { check, type Update } from '@tauri-apps/plugin-updater'
 	import { relaunch } from '@tauri-apps/plugin-process'
@@ -17,8 +19,6 @@
 	import Slider from '@components/base/Slider.vue'
 	import { toast } from '@components/base/Toast/toast'
 	import { getLocalePreference, setLocale } from '@i18n'
-	import type { LocalePreference } from '@i18n'
-	import type { Menus } from '@windows/settings/components/types'
 
 	const { t } = useI18n()
 
@@ -140,7 +140,7 @@
 		}
 	}
 
-	const menus = computed<Array<Menus<PreferenceState>>>(() => [
+	const list = computed<Array<Menus<PreferenceState>>>(() => [
 		{
 			title: t('settings.groups.general'),
 			description: t('settings.groups.generalDescription'),
@@ -296,7 +296,7 @@
 		</div>
 
 		<div class="module-main-container">
-			<section v-for="group in menus" :key="group.title">
+			<section v-for="group in list" :key="group.title">
 				<div class="primary-container">
 					<component :is="group.icon" class="iconify" />
 					<div>
@@ -355,7 +355,8 @@
 </template>
 
 <style scoped lang="scss">
-	@use './style.scss';
+	@use '@assets/styles/variable.scss' as *;
+	@use '../style.scss';
 
 	.module-main-container {
 		display: grid;
@@ -372,10 +373,7 @@
 				width: 18px;
 				height: 18px;
 				border-radius: 6px;
-				background-color: #ffffff1d;
-				border: 1px solid #ffffff89;
-				box-shadow: inset 4px 2px 8px #ffffff7e;
-				backdrop-filter: blur(10px);
+				@include glass-effect;
 			}
 			h3 {
 				font-size: 14px;
@@ -389,10 +387,7 @@
 		.module-menus-container {
 			margin-top: 8px;
 			border-radius: 12px;
-			background-color: #ffffff1d;
-			border: 1px solid #ffffff89;
-			box-shadow: inset 4px 2px 8px #ffffff7e;
-			backdrop-filter: blur(20px);
+			@include glass-effect;
 			li {
 				display: flex;
 				align-items: center;
@@ -406,11 +401,11 @@
 					border-radius: 0 0 12px 12px;
 				}
 				&:not(:last-child) {
-					border-bottom: 1px solid #ffffff89;
+					border-bottom: $glass-border;
 				}
 				&:hover {
 					background-color: #ffffff46;
-					box-shadow: inset 4px 2px 8px #ffffff7e;
+					box-shadow: $glass-inset-shadow;
 				}
 				.name-container {
 					display: flex;

@@ -1,3 +1,5 @@
+@use '@assets/styles/variable' as *;
+
 .module-header-container {
 	display: flex;
 	align-items: center;
@@ -20,7 +22,7 @@
 		align-items: center;
 		gap: 5px;
 		padding: 5px 9px;
-		border: 1px solid #ffffff89;
+		border: $glass-border;
 		border-radius: 99px;
 		background: #ffffff45;
 		box-shadow: inset 1px 1px 3px #ffffff70;

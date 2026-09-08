@@ -105,6 +105,7 @@
 </template>
 
 <style scoped lang="scss">
+	@use '@assets/styles/variable.scss' as *;
 	.select-container {
 		position: relative;
 		display: inline-flex;
@@ -129,10 +130,7 @@
 		text-align: left;
 		border-radius: 7px;
 		outline: none;
-		background-color: #ffffff1d;
-		border: 1px solid #ffffff89;
-		box-shadow: inset 4px 2px 8px #ffffff7e;
-		backdrop-filter: blur(10px);
+		@include glass-effect;
 		cursor: pointer;
 	}
 
@@ -179,10 +177,7 @@
 		padding: 4px;
 		margin: 0;
 		list-style: none;
-		background-color: #ffffff42;
-		border: 1px solid #ffffff89;
-		box-shadow: inset 4px 2px 8px #ffffff98;
-		backdrop-filter: blur(10px);
+		@include glass-effect;
 		border-radius: 8px;
 		max-height: 180px;
 		overflow-y: auto;
