@@ -8,7 +8,7 @@
 
 	const emit = defineEmits<{
 		'update:modelValue': [value: boolean]
-		close: []
+		'close': []
 	}>()
 
 	const props = withDefaults(
@@ -32,8 +32,10 @@
 	const visible = computed(() => (serviceMode.value ? serviceItem.value !== null : props.modelValue))
 	const currentTitle = computed(() => (serviceMode.value ? serviceItem.value?.title : props.title) ?? '')
 	const currentWidth = computed(() => (serviceMode.value ? serviceItem.value?.width : props.width) ?? '420px')
-	const currentClosable = computed(() => serviceMode.value ? serviceItem.value?.closable ?? true : props.closable)
-	const currentMaskClosable = computed(() => serviceMode.value ? serviceItem.value?.maskClosable ?? true : props.maskClosable)
+	const currentClosable = computed(() => (serviceMode.value ? (serviceItem.value?.closable ?? true) : props.closable))
+	const currentMaskClosable = computed(() =>
+		serviceMode.value ? (serviceItem.value?.maskClosable ?? true) : props.maskClosable,
+	)
 
 	function close() {
 		if (serviceMode.value) {
@@ -91,7 +93,13 @@
 				>
 					<header v-if="currentTitle || currentClosable" class="modal-header">
 						<h2 v-if="currentTitle" class="modal-title">{{ currentTitle }}</h2>
-						<button v-if="currentClosable" class="modal-close" type="button" :aria-label="t('common.closeDialog')" @click="close">
+						<button
+							v-if="currentClosable"
+							class="modal-close"
+							type="button"
+							:aria-label="t('common.closeDialog')"
+							@click="close"
+						>
 							<IconifyX class="iconify" />
 						</button>
 					</header>
@@ -115,7 +123,6 @@
 </template>
 
 <style scoped lang="scss">
-
 	.modal-overlay {
 		position: fixed;
 		z-index: 1100;
@@ -132,7 +139,7 @@
 			@include glass-effect;
 			background-color: #ffffff6c;
 			overflow: auto;
-            box-shadow: 0 0 10px #66666649;
+			box-shadow: 0 0 10px #66666649;
 		}
 
 		.modal-header {

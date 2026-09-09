@@ -12,7 +12,6 @@
 </template>
 
 <style scoped lang="scss">
-
 	.trano-input {
 		padding: 8px 10px;
 		border-radius: 6px;

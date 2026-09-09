@@ -105,7 +105,6 @@
 </template>
 
 <style scoped lang="scss">
-
 	.select-container {
 		position: relative;
 		display: inline-flex;

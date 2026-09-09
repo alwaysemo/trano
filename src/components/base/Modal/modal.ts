@@ -56,7 +56,8 @@ function show(optionsOrContent: string | ModalOptions): Promise<boolean> {
 export const modal = {
 	state,
 	show,
-	confirm: (content: string, title = translate('common.confirm', 'Please confirm')) => show({ content, title, showCancel: true }),
+	confirm: (content: string, title = translate('common.confirm', 'Please confirm')) =>
+		show({ content, title, showCancel: true }),
 	alert: (content: string, title = translate('common.prompt', 'Prompt')) => show({ content, title }),
 	close,
 }

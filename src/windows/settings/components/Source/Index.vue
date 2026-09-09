@@ -31,7 +31,14 @@
 			name: t('settings.sourceBing'),
 			icon: SvgBing,
 			hint: t('settings.sourceBuiltInHint'),
-			options: [{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') }],
+			options: [
+				{
+					name: t('settings.sourceName'),
+					key: 'name',
+					type: 'input',
+					placeholder: t('settings.sourcePlaceholderName'),
+				},
+			],
 		},
 		{
 			key: '2',
@@ -39,7 +46,14 @@
 			name: t('settings.sourceGoogle'),
 			icon: SvgGoogle,
 			hint: t('settings.sourceBuiltInHint'),
-			options: [{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') }],
+			options: [
+				{
+					name: t('settings.sourceName'),
+					key: 'name',
+					type: 'input',
+					placeholder: t('settings.sourcePlaceholderName'),
+				},
+			],
 		},
 		{
 			key: '3',
@@ -47,9 +61,24 @@
 			name: t('settings.sourceBaidu'),
 			icon: SvgBaidu,
 			options: [
-				{ name: t('settings.sourceName'), key: 'name', type: 'input', placeholder: t('settings.sourcePlaceholderName') },
-				{ name: t('settings.sourceAppId'), key: 'appid', type: 'input', placeholder: t('settings.sourcePlaceholderAppId') },
-				{ name: t('settings.sourceAppKey'), key: 'appkey', type: 'input', placeholder: t('settings.sourcePlaceholderAppKey') },
+				{
+					name: t('settings.sourceName'),
+					key: 'name',
+					type: 'input',
+					placeholder: t('settings.sourcePlaceholderName'),
+				},
+				{
+					name: t('settings.sourceAppId'),
+					key: 'appid',
+					type: 'input',
+					placeholder: t('settings.sourcePlaceholderAppId'),
+				},
+				{
+					name: t('settings.sourceAppKey'),
+					key: 'appkey',
+					type: 'input',
+					placeholder: t('settings.sourcePlaceholderAppKey'),
+				},
 			],
 		},
 	])

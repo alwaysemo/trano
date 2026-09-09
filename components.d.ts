@@ -11,12 +11,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseButton: typeof import('./src/components/base/Button.vue')['default']
-    BaseInput: typeof import('./src/components/base/Input.vue')['default']
-    BaseModal: typeof import('./src/components/base/Modal/Index.vue')['default']
-    BaseSelect: typeof import('./src/components/base/Select.vue')['default']
-    BaseSlider: typeof import('./src/components/base/Slider.vue')['default']
-    BaseSwitch: typeof import('./src/components/base/Switch.vue')['default']
-    BaseToast: typeof import('./src/components/base/Toast/Index.vue')['default']
+    Button: typeof import('./src/components/base/Button.vue')['default']
+    Index: typeof import('./src/components/base/Modal/Index.vue')['default']
+    Input: typeof import('./src/components/base/Input.vue')['default']
+    Select: typeof import('./src/components/base/Select.vue')['default']
+    Slider: typeof import('./src/components/base/Slider.vue')['default']
+    Switch: typeof import('./src/components/base/Switch.vue')['default']
   }
 }

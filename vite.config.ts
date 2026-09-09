@@ -3,13 +3,14 @@ import process from 'node:process'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import viteComponents from 'unplugin-vue-components/vite'
+import tailwindcss from '@tailwindcss/vite'
 
 const host: string = process.env.TAURI_DEV_HOST || 'localhost'
 const port: number = Number(process.env.TAURI_DEV_PORT || 3000)
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-	plugins: [vue(), viteComponents({ directoryAsNamespace: true })],
+	plugins: [vue(), tailwindcss(), viteComponents({ directoryAsNamespace: false })],
 	// 防止 Vite 清除 Rust 显示的错误
 	clearScreen: false,
 
