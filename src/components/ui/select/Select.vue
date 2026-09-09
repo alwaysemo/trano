@@ -10,6 +10,6 @@
 
 <template>
 	<SelectRoot v-slot="slotProps" data-slot="select" v-bind="forwarded">
-		<slot v-bind="slotProps" />
+		<slot v-bind="slotProps"></slot>
 	</SelectRoot>
 </template>

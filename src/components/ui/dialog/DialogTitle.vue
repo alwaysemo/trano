@@ -18,6 +18,6 @@
 		v-bind="forwardedProps"
 		:class="cn('text-base leading-none font-medium cn-font-heading', props.class)"
 	>
-		<slot />
+		<slot></slot>
 	</DialogTitle>
 </template>

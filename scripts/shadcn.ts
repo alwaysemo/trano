@@ -11,6 +11,25 @@ function getDirs(dir: string) {
 		.map((d) => d.name)
 }
 
+function normalizeSlotTagsInVueFiles(dir: string) {
+	const entries = fs.readdirSync(dir, { withFileTypes: true })
+
+	for (const entry of entries) {
+		const fullPath = path.join(dir, entry.name)
+		if (entry.isDirectory()) {
+			normalizeSlotTagsInVueFiles(fullPath)
+			continue
+		}
+		if (!entry.name.endsWith('.vue')) continue
+
+		const original = fs.readFileSync(fullPath, 'utf-8')
+		const next = original.replace(/<slot\b([^>]*)\/>/g, '<slot$1></slot>')
+		if (original !== next) {
+			fs.writeFileSync(fullPath, next)
+		}
+	}
+}
+
 function extractExportLines(content: string) {
 	return content
 		.split('\n')
@@ -57,5 +76,6 @@ for (const [dir, names] of importMap.entries()) {
 }
 output += `\nexport { ${[...exportSet].join(', ')} }\n`
 fs.writeFileSync(outputFile, output)
+normalizeSlotTagsInVueFiles(uiDir)
 
 console.log('✅ ShadcnUI index generated (optimized)')

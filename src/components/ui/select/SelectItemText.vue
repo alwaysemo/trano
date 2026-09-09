@@ -7,6 +7,6 @@
 
 <template>
 	<SelectItemText data-slot="select-item-text" v-bind="props">
-		<slot />
+		<slot></slot>
 	</SelectItemText>
 </template>

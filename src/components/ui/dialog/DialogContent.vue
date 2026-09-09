@@ -39,7 +39,7 @@
 				)
 			"
 		>
-			<slot />
+			<slot></slot>
 
 			<DialogClose v-if="showCloseButton" data-slot="dialog-close" as-child>
 				<Button variant="ghost" class="absolute top-4 right-4" size="icon-sm">

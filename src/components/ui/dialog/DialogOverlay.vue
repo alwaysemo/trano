@@ -21,6 +21,6 @@
 			)
 		"
 	>
-		<slot />
+		<slot></slot>
 	</DialogOverlay>
 </template>

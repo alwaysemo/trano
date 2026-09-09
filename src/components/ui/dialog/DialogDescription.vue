@@ -23,6 +23,6 @@
 			)
 		"
 	>
-		<slot />
+		<slot></slot>
 	</DialogDescription>
 </template>
