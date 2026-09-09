@@ -40,7 +40,7 @@ export default defineConfig(async () => ({
 	css: {
 		preprocessorOptions: {
 			scss: {
-				additionalData: `@use "@assets/styles/variable.scss" as *; @use "@assets/styles/tailwind.scss" as *;`,
+				additionalData: `@use "@assets/styles/variable.scss" as *;`,
 				charset: false,
 				outputStyle: 'compressed',
 				api: 'modern-compiler',
