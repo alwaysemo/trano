@@ -1,0 +1,1 @@
+export const DEFAULT_SMART_TRANSLATE = true

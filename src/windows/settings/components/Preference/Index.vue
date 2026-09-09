@@ -1,12 +1,8 @@
 <script setup lang="ts">
-	import type { Menus } from '@windows/settings/components/Preference/types'
-	import type { LocalePreference } from '@i18n'
-	import { getLocalePreference, setLocale } from '@i18n'
+	import type { Menus } from './types'
+	import type { LocalePreference } from './utils/language'
 	import { useI18n } from 'vue-i18n'
-	import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
-	import { disable, enable, isEnabled } from '@tauri-apps/plugin-autostart'
-	import { check, type Update } from '@tauri-apps/plugin-updater'
-	import { relaunch } from '@tauri-apps/plugin-process'
+	import { computed, onMounted, reactive, watch } from 'vue'
 	import { invoke } from '@tauri-apps/api/core'
 	import IconifyDownload from '@iconify-vue/lucide/download'
 	import IconifyRefreshCw from '@iconify-vue/lucide/refresh-cw'
@@ -14,28 +10,34 @@
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
-	import { toast } from '@/composables/toast'
+	import { useAutoUpdate } from './utils/auto_update'
+	import { DEFAULT_FONT_SIZE, FONT_SIZE_MAX, FONT_SIZE_MIN, FONT_SIZE_STEP } from './utils/font_size'
+	import { getLanguagePreference, setLanguagePreference } from './utils/language'
+	import { isLaunchLoginEnabled, setLaunchLogin } from './utils/launch_login'
+	import { DEFAULT_POSITION, normalizePosition } from './utils/position'
+	import { setShowInDock, DEFAULT_SHOW_IN_DOCK } from './utils/show_in_dock'
+	import { DEFAULT_SMART_TRANSLATE } from './utils/smart_translate'
 
 	const { t } = useI18n()
 
 	const state = reactive({
-		language: getLocalePreference() as LocalePreference,
-		launchAtLogin: false,
-		autoUpdate: true,
-		showInDock: true,
-		position: 'center',
-		fontSize: 14,
-		smartTranslate: true,
+		language: getLanguagePreference(),
+		launch_login: false,
+		auto_update: true,
+		show_in_dock: DEFAULT_SHOW_IN_DOCK,
+		position: DEFAULT_POSITION,
+		font_size: DEFAULT_FONT_SIZE,
+		smart_translate: DEFAULT_SMART_TRANSLATE,
 	})
 	type PreferenceState = typeof state
-	let syncingLaunchAtLogin = false
-	const saveStatus = ref<'updated' | 'saved'>('saved')
-	const availableUpdate = ref<Update | null>(null)
-	const updateVersion = ref<string | null>(null)
-	const isInstallingUpdate = ref(false)
-	const isCheckingUpdate = ref(false)
-	let saveStatusTimer: ReturnType<typeof setTimeout> | undefined
-	let savePreferencesTimer: ReturnType<typeof setTimeout> | undefined
+	const {
+		availableUpdate,
+		isInstallingUpdate,
+		isCheckingUpdate,
+		checkForUpdates,
+		installUpdate,
+		clearAvailableUpdate,
+	} = useAutoUpdate(computed(() => state.auto_update))
 	let isLoading = true
 
 	const loadPreferences = async () => {
@@ -49,91 +51,24 @@
 		}>('load_preferences')
 
 		state.language = preferences.language
-		state.autoUpdate = preferences.auto_update
-		state.showInDock = preferences.show_in_dock
-		state.position = preferences.position
-		state.fontSize = preferences.font_size
-		state.smartTranslate = preferences.smart_translate
+		state.auto_update = preferences.auto_update
+		state.show_in_dock = preferences.show_in_dock
+		state.position = normalizePosition(preferences.position)
+		state.font_size = preferences.font_size
+		state.smart_translate = preferences.smart_translate
 	}
 
 	const savePreferences = () => {
-		if (isLoading) return
-		if (savePreferencesTimer) clearTimeout(savePreferencesTimer)
-		savePreferencesTimer = setTimeout(() => {
-			void invoke('save_preferences', {
-				preferences: {
-					language: state.language,
-					auto_update: state.autoUpdate,
-					show_in_dock: state.showInDock,
-					position: state.position,
-					font_size: state.fontSize,
-					smart_translate: state.smartTranslate,
-				},
-			}).catch((error) => console.error('保存偏好设置失败:', error))
-		}, 150)
-	}
-
-	const markSettingsUpdated = () => {
-		if (isLoading) return
-
-		saveStatus.value = 'updated'
-		if (saveStatusTimer) clearTimeout(saveStatusTimer)
-		saveStatusTimer = setTimeout(() => {
-			saveStatus.value = 'saved'
-		}, 1000)
-	}
-
-	const updateLaunchAtLogin = async (enabled: boolean) => {
-		if (syncingLaunchAtLogin) return
-
-		syncingLaunchAtLogin = true
-		try {
-			if (enabled) {
-				await enable()
-			} else {
-				await disable()
-			}
-		} catch (error) {
-			state.launchAtLogin = !enabled
-			console.error('更新开机自启设置失败:', error)
-		} finally {
-			syncingLaunchAtLogin = false
-		}
-	}
-
-	const checkForUpdates = async (force = false) => {
-		if ((!state.autoUpdate && !force) || isCheckingUpdate.value) return
-
-		isCheckingUpdate.value = true
-		try {
-			const update = await check()
-			availableUpdate.value = update
-			updateVersion.value = update?.version ?? null
-			if (update) {
-				toast.success(t('settings.updateFound', { version: update.version }))
-			} else {
-				toast.info(t('settings.upToDate'))
-			}
-		} catch (error) {
-			console.error('检查更新失败:', error)
-			toast.error(t('settings.updateCheckFailed'))
-		} finally {
-			isCheckingUpdate.value = false
-		}
-	}
-
-	const installUpdate = async () => {
-		if (!availableUpdate.value || isInstallingUpdate.value) return
-
-		isInstallingUpdate.value = true
-		try {
-			await availableUpdate.value.downloadAndInstall()
-			await relaunch()
-		} catch (error) {
-			isInstallingUpdate.value = false
-			console.error('安装更新失败:', error)
-			toast.error(t('settings.updateInstallFailed'))
-		}
+		void invoke('save_preferences', {
+			preferences: {
+				language: state.language,
+				auto_update: state.auto_update,
+				show_in_dock: state.show_in_dock,
+				position: state.position,
+				font_size: state.font_size,
+				smart_translate: state.smart_translate,
+			},
+		}).catch((error) => console.error('保存偏好设置失败:', error))
 	}
 
 	const list = computed<Array<Menus<PreferenceState>>>(() => [
@@ -164,19 +99,19 @@
 					label: t('settings.items.launchAtLogin'),
 					hint: t('settings.items.launchAtLoginHint'),
 					type: 'switch',
-					key: 'launchAtLogin',
+					key: 'launch_login',
 				},
 				{
 					label: t('settings.items.autoUpdate'),
 					hint: t('settings.items.autoUpdateHint'),
 					type: 'switch',
-					key: 'autoUpdate',
+					key: 'auto_update',
 				},
 				{
 					label: t('settings.items.showInDock'),
 					hint: t('settings.items.showInDockHint'),
 					type: 'switch',
-					key: 'showInDock',
+					key: 'show_in_dock',
 				},
 			],
 		},
@@ -200,7 +135,7 @@
 					label: t('settings.items.fontSize'),
 					hint: t('settings.items.fontSizeHint'),
 					type: 'slider',
-					key: 'fontSize',
+					key: 'font_size',
 				},
 			],
 		},
@@ -213,7 +148,7 @@
 					label: t('settings.items.smartTranslate'),
 					hint: t('settings.items.smartTranslateHint'),
 					type: 'switch',
-					key: 'smartTranslate',
+					key: 'smart_translate',
 				},
 			],
 		},
@@ -221,13 +156,13 @@
 
 	watch(
 		() => state.language,
-		(language) => setLocale(language),
+		(language) => setLanguagePreference(language),
 	)
 
 	onMounted(async () => {
 		try {
 			await loadPreferences()
-			state.launchAtLogin = await isEnabled()
+			state.launch_login = await isLaunchLoginEnabled()
 			await checkForUpdates()
 		} catch (error) {
 			console.error('读取开机自启设置失败:', error)
@@ -237,46 +172,39 @@
 	})
 
 	watch(
-		() => state.launchAtLogin,
-		(enabled) => void updateLaunchAtLogin(enabled),
+		() => state.launch_login,
+		async (enabled) => {
+			if (!(await setLaunchLogin(enabled))) state.launch_login = !enabled
+		},
 	)
 
 	watch(
-		() => state.autoUpdate,
+		() => state.auto_update,
 		(enabled) => {
 			if (isLoading) return
 			if (enabled) {
 				void checkForUpdates()
 			} else {
-				availableUpdate.value = null
-				updateVersion.value = null
+				clearAvailableUpdate()
 			}
 		},
 	)
 
 	watch(
-		() => state.showInDock,
+		() => state.show_in_dock,
 		(show) => {
 			if (isLoading) return
-			void invoke('set_icon_visibility', { show }).catch((error) =>
-				console.error('更新程序坞/任务栏图标设置失败:', error),
-			)
+			setShowInDock(show)
 		},
 	)
 
 	watch(
 		state,
 		() => {
-			markSettingsUpdated()
 			savePreferences()
 		},
 		{ deep: true },
 	)
-
-	onUnmounted(() => {
-		if (saveStatusTimer) clearTimeout(saveStatusTimer)
-		if (savePreferencesTimer) clearTimeout(savePreferencesTimer)
-	})
 </script>
 
 <template>
@@ -315,7 +243,7 @@
 							<span class="text-xs text-gray-400">{{ item.hint }}</span>
 						</div>
 						<div class="flex items-center gap-2.5">
-							<template v-if="item.key === 'autoUpdate'">
+							<template v-if="item.key === 'auto_update'">
 								<ShadcnButton
 									class="check-update-button"
 									type="button"
@@ -345,16 +273,16 @@
 								</ShadcnSelectTrigger>
 								<ShadcnSelectContent>
 									<ShadcnSelectItem v-for="option in item.options" :key="option.value" :value="option.value">
-										{{ option.flag }} {{ option.label }}
+										{{ option.flag ?? '' }} {{ option.label }}
 									</ShadcnSelectItem>
 								</ShadcnSelectContent>
 							</ShadcnSelect>
 							<ShadcnSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
-								:min="10"
-								:max="32"
-								:step="2"
+								:min="FONT_SIZE_MIN"
+								:max="FONT_SIZE_MAX"
+								:step="FONT_SIZE_STEP"
 								class="w-30"
 							/>
 						</div>
