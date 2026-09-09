@@ -41,7 +41,7 @@
 		</SliderTrack>
 
 		<SliderThumb
-			v-for="(_, key) in modelValue"
+			v-for="(_, key) in Array.isArray(modelValue) ? modelValue : [modelValue]"
 			:key="key"
 			data-slot="slider-thumb"
 			:data-vertical="props.orientation === 'vertical' ? '' : undefined"

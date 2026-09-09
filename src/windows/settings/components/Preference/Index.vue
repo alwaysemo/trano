@@ -342,10 +342,11 @@
 							<ShadcnSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
+								:default-value="[12]"
 								:min="12"
 								:max="28"
 								:step="1"
-								value-template="{value}px"
+								class="w-30"
 							/>
 						</div>
 					</li>

@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "lint": "eslint . --fix --cache",
-    "shadcn": "node ./scripts/shadcn.ts && prettier --write --experimental-cli src/components/ui/index.ts",
+    "shadcn": "node ./scripts/shadcn.ts && prettier --write --experimental-cli src/components/ui/",
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
