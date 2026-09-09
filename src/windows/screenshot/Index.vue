@@ -7,5 +7,4 @@
 <template>
 	<main>{{ t('windows.screenshot') }}</main>
 	<ShadcnToaster />
-	<AppModal />
 </template>

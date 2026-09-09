@@ -1,16 +1,37 @@
 <script setup lang="ts">
-	import type { SliderRootEmits, SliderRootProps } from 'reka-ui'
+	import type { SliderRootProps } from 'reka-ui'
 	import type { HTMLAttributes } from 'vue'
+	import { computed } from 'vue'
 	import { reactiveOmit } from '@vueuse/core'
 	import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui'
 	import { cn } from '@/lib/utils'
 
-	const props = defineProps<SliderRootProps & { class?: HTMLAttributes['class'] }>()
-	const emits = defineEmits<SliderRootEmits>()
+	type SliderProps = Omit<SliderRootProps, 'modelValue'> & {
+		modelValue?: number | number[]
+		class?: HTMLAttributes['class']
+	}
 
-	const delegatedProps = reactiveOmit(props, 'class')
+	const props = defineProps<SliderProps>()
+	const emits = defineEmits<{
+		'update:modelValue': [payload: number | number[] | undefined]
+		valueCommit: [payload: number[]]
+	}>()
+
+	const delegatedProps = reactiveOmit(props, 'class', 'modelValue')
+	const normalizedModelValue = computed(() =>
+		props.modelValue == null ? undefined : Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue],
+	)
 
 	const forwarded = useForwardPropsEmits(delegatedProps, emits)
+
+	function handleModelValueUpdate(value: number[] | undefined) {
+		if (Array.isArray(props.modelValue)) {
+			emits('update:modelValue', value)
+			return
+		}
+
+		emits('update:modelValue', value?.[0])
+	}
 </script>
 
 <template>
@@ -25,6 +46,8 @@
 			)
 		"
 		v-bind="forwarded"
+		:model-value="normalizedModelValue"
+		@update:model-value="handleModelValueUpdate"
 	>
 		<SliderTrack
 			data-slot="slider-track"

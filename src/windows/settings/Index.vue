@@ -48,57 +48,70 @@
 		{ name: t('settings.network'), comp: Network, icon: IconifyGlobe },
 		{ name: t('settings.about'), comp: About, icon: IconifyUsersRound },
 	])
+
+	const selectedNavIndex = computed(() => navbar.value.findIndex((item) => item.comp === comped.value))
 </script>
 
 <template>
 	<div>
-		<header class="header-container" @mousedown.stop="drag">
-			<div class="control-container">
+		<header class="grid cursor-default grid-cols-[100px_1fr_100px] p-2.5" @mousedown.stop="drag">
+			<div class="group flex gap-1">
 				<button
 					v-motion-pop-visible-once
+					class="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-red-400"
 					data-color="close"
 					type="button"
 					:title="t('settings.close')"
 					@mousedown.stop
 					@click="close"
 				>
-					<IconifyPower class="iconify" />
+					<IconifyPower class="h-2.5 w-2.5 text-red-600 opacity-0 transition-opacity group-hover:opacity-100" />
 				</button>
 				<button
 					v-motion-pop-visible-once
+					class="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-amber-400"
 					data-color="minimize"
 					type="button"
 					:title="t('settings.minimize')"
 					@mousedown.stop
 					@click="minimize"
 				>
-					<IconifyMinus class="iconify" />
+					<IconifyMinus class="h-2.5 w-2.5 text-amber-600 opacity-0 transition-opacity group-hover:opacity-100" />
 				</button>
-				<button v-motion-pop-visible-once data-color="maximize" type="button" :title="t('settings.maximize')">
-					<IconifyMinimize class="iconify" />
+				<button
+					v-motion-pop-visible-once
+					class="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-gray-300"
+					type="button"
+					:title="t('settings.maximize')"
+				>
+					<IconifyMinimize class="h-2.5 w-2.5 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
 				</button>
 			</div>
-			<h1 class="title-container">Trano</h1>
+			<h1 class="text-center text-sm font-thin leading-none">Trano</h1>
 			<div></div>
 		</header>
-		<section class="section-container">
-			<aside class="sidebar-container">
-				<nav>
+		<section class="section-container grid grid-cols-[minmax(180px,max-content)_minmax(0,1fr)]">
+			<aside class="sidebar-container p-2">
+				<nav class="relative h-[calc(100vh-56px)] overflow-y-auto">
+					<div
+						class="pointer-events-none absolute inset-x-0 top-0 z-0 h-15 rounded-xl trano-effect-glass transition-transform duration-300 ease-in-out"
+						:style="{ transform: `translateY(${selectedNavIndex * 60}px)` }"
+					></div>
 					<div
 						v-for="(item, index) in navbar"
 						:key="item.name"
-						:data-selected="comped === item.comp"
 						v-motion
 						:initial="{ opacity: 0, y: 20 }"
 						:enter="{ opacity: 1, y: 0, transition: { delay: (index + 2) * 100 } }"
+						class="flex h-15 cursor-pointer items-center gap-2 px-3 font-bold"
 						@click="comped = item.comp"
 					>
-						<component class="iconify" :is="item.icon" />
-						<span>{{ item.name }}</span>
+						<component class="h-4 w-4" :is="item.icon" />
+						<span class="text-md">{{ item.name }}</span>
 					</div>
 				</nav>
 			</aside>
-			<main class="main-container">
+			<main class="px-2.5">
 				<div>
 					<component v-motion-slide-bottom :is="comped" />
 				</div>
@@ -106,62 +119,9 @@
 		</section>
 	</div>
 	<ShadcnToaster />
-	<AppModal />
 </template>
 
-<style lang="scss" scoped>
-	.header-container {
-		display: grid;
-		grid-template-columns: 100px 1fr 100px;
-		padding: 10px;
-		cursor: default;
-		.control-container {
-			display: flex;
-			gap: 4px;
-			&:hover .iconify {
-				opacity: 100%;
-			}
-			button {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: 16px;
-				width: 16px;
-				cursor: pointer;
-				border-radius: 50%;
-				.iconify {
-					height: 10px;
-					width: 10px;
-					opacity: 0;
-					transition: opacity 0.3s;
-				}
-				&[data-color='close'] {
-					background-color: #ff6060;
-					.iconify {
-						color: #d92109;
-					}
-				}
-				&[data-color='minimize'] {
-					background-color: #ffcd58;
-					.iconify {
-						color: #c48900;
-					}
-				}
-				&[data-color='maximize'] {
-					background-color: #dedede;
-					.iconify {
-						color: #b3b3b3;
-					}
-				}
-			}
-		}
-		.title-container {
-			font-size: 14px;
-			line-height: 1;
-			text-align: center;
-			font-weight: 100;
-		}
-	}
+<style scoped lang="scss">
 	.section-container {
 		display: grid;
 		grid-template-columns: minmax(180px, max-content) minmax(0, 1fr);
@@ -200,33 +160,6 @@
 				animation: ani 20s ease-in-out infinite;
 				filter: blur(40px);
 			}
-			nav {
-				overflow-y: auto;
-				height: calc(100vh - 36px - 20px);
-				div {
-					display: flex;
-					align-items: center;
-					height: 56px;
-					gap: 4px;
-					padding: 0 12px;
-					border-radius: 12px;
-					font-weight: bold;
-					border: 1px solid transparent;
-					cursor: pointer;
-					transition: all 0.3s;
-					&:not(:last-child) {
-						margin-bottom: 4px;
-					}
-					&:hover,
-					&[data-selected='true'] {
-						@include glass-effect;
-					}
-					.iconify {
-						width: 16px;
-						height: 16px;
-					}
-				}
-			}
 		}
 	}
 	@keyframes ani {
@@ -248,8 +181,5 @@
 		100% {
 			transform: translate3d(0%, 0%, 0) scale(1);
 		}
-	}
-	.main-container {
-		padding: 0 10px;
 	}
 </style>

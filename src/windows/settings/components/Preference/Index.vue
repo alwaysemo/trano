@@ -281,51 +281,61 @@
 
 <template>
 	<div>
-		<div class="module-header-container">
+		<div class="flex items-center justify-between pb-4.5">
 			<div>
-				<p>TRANO / PREFERENCE</p>
-				<h1>{{ t('settings.preferenceTitle') }}</h1>
+				<p class="text-xs font-thin text-gray-400">TRANO / PREFERENCE</p>
+				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.preferenceTitle') }}</h1>
 			</div>
-			<span class="status-mark" :data-status="saveStatus === 'updated' ? 'warning' : 'success'">
-				{{ t(`settings.${saveStatus}`) }}
-			</span>
+			<div
+				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-2 px-2 leading-none"
+				data-status="updated"
+			>
+				<em>~</em>
+				<span class="text-[10px]">{{ t(`settings.updated`) }}</span>
+			</div>
 		</div>
 
-		<div class="module-main-container">
+		<div class="grid h-[calc(100vh-36px-62px)] gap-6 overflow-y-auto">
 			<section v-for="group in list" :key="group.title">
-				<div class="primary-container">
-					<component :is="group.icon" class="iconify" />
+				<div class="flex items-center gap-2 leading-none">
+					<component :is="group.icon" class="h-8 w-8 rounded-md trano-effect-glass p-2" />
 					<div>
-						<h3>{{ group.title }}</h3>
-						<p>{{ group.description }}</p>
+						<h3 class="text-sm">{{ group.title }}</h3>
+						<p class="text-xs text-gray-400">{{ group.description }}</p>
 					</div>
 				</div>
-				<ul class="module-menus-container">
-					<li v-for="item in group.items" :key="item.label">
-						<div class="name-container">
-							<strong>{{ item.label }}</strong>
-							<span>{{ item.hint }}</span>
+				<ul class="mt-2 rounded-xl trano-effect-glass">
+					<li
+						v-for="item in group.items"
+						:key="item.label"
+						class="flex items-center justify-between p-3 transition-all first:rounded-t-xl last:rounded-b-xl not-last:border-b not-last:border-white/50 hover:bg-white/25"
+					>
+						<div class="flex flex-col gap-1 leading-none">
+							<strong class="text-sm">{{ item.label }}</strong>
+							<span class="text-xs text-gray-400">{{ item.hint }}</span>
 						</div>
-						<div class="content-container">
+						<div class="flex items-center gap-2.5">
 							<template v-if="item.key === 'autoUpdate'">
 								<ShadcnButton
 									class="check-update-button"
 									type="button"
+									size="sm"
 									:disabled="isCheckingUpdate || isInstallingUpdate"
 									@click="checkForUpdates(true)"
 								>
 									<IconifyRefreshCw class="iconify" />
-									{{ t(isCheckingUpdate ? 'settings.checkingUpdates' : 'settings.checkForUpdates') }}
+									{{ isCheckingUpdate ? t('settings.checkingUpdates') : t('settings.checkForUpdates') }}
 								</ShadcnButton>
 								<ShadcnButton
 									v-if="availableUpdate"
 									class="update-button"
 									type="button"
+									size="sm"
 									:disabled="isInstallingUpdate"
 									@click="installUpdate"
 								>
 									<IconifyDownload class="iconify" />
-									{{ t(isInstallingUpdate ? 'settings.updateInstalling' : 'settings.updateNow') }}
+									{{ isInstallingUpdate ? t('settings.updateInstalling') : t('settings.updateNow') }}
 								</ShadcnButton>
 							</template>
 							<ShadcnSwitch v-if="item.type === 'switch'" v-model="state[item.key]" />
@@ -342,95 +352,23 @@
 							<ShadcnSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
-								:default-value="[12]"
-								:min="12"
-								:max="28"
-								:step="1"
+								:min="10"
+								:max="32"
+								:step="2"
 								class="w-30"
 							/>
 						</div>
 					</li>
 				</ul>
 			</section>
-			<div class="module-footer-container">
-				<IconifySave class="iconify" />
-				<span>{{ t('settings.autoSave') }}</span>
+			<div class="mb-6 flex items-center justify-end gap-1">
+				<IconifySave class="h-3.5 w-3.5" />
+				<span class="text-xs">{{ t('settings.autoSave') }}</span>
 			</div>
 		</div>
 	</div>
 </template>
 
 <style scoped lang="scss">
-	@use '../style.scss';
-
-	.module-main-container {
-		display: grid;
-		gap: 24px;
-		overflow-y: auto;
-		height: calc(100vh - 36px - 20px - 40px);
-		.primary-container {
-			display: flex;
-			align-items: center;
-			gap: 6px;
-			line-height: 1;
-			.iconify {
-				padding: 6px;
-				width: 18px;
-				height: 18px;
-				border-radius: 6px;
-				@include glass-effect;
-			}
-			h3 {
-				font-size: 14px;
-			}
-			p {
-				margin-top: 4px;
-				font-size: 12px;
-				color: #89909a;
-			}
-		}
-		.module-menus-container {
-			margin-top: 8px;
-			border-radius: 12px;
-			@include glass-effect;
-			li {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 12px;
-				transition: all 0.3s;
-				&:first-child {
-					border-radius: 12px 12px 0 0;
-				}
-				&:last-child {
-					border-radius: 0 0 12px 12px;
-				}
-				&:not(:last-child) {
-					border-bottom: $glass-border;
-				}
-				&:hover {
-					background-color: #ffffff46;
-					box-shadow: $glass-inset-shadow;
-				}
-				.name-container {
-					display: flex;
-					flex-direction: column;
-					gap: 10px;
-					line-height: 1;
-					strong {
-						font-size: 14px;
-					}
-					span {
-						color: #89909a;
-						font-size: 12px;
-					}
-				}
-				.content-container {
-					display: flex;
-					align-items: center;
-					gap: 10px;
-				}
-			}
-		}
-	}
+	/** */
 </style>

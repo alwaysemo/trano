@@ -153,27 +153,41 @@
 
 <template>
 	<div>
-		<div class="module-header-container">
+		<div class="flex items-center justify-between pb-4.5">
 			<div>
-				<p>TRANO / SOURCE</p>
-				<h1>{{ t('settings.source') }}</h1>
+				<p class="text-xs font-thin text-gray-400">TRANO / SOURCE</p>
+				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.source') }}</h1>
 			</div>
-			<span class="status-mark" data-status="warning">{{ t('settings.sourceSaved') }}</span>
+			<span
+				class="relative flex items-center gap-1.25 rounded-[99px] border border-white/50 bg-white/25 py-1.25 pl-5 pr-2.25 text-[10px] text-amber-500 shadow-[inset_1px_1px_3px_rgb(255_255_255_/_45%)] before:absolute before:left-2.5 before:top-1/2 before:h-1.25 before:w-1.25 before:-translate-y-1/2 before:rounded-full before:bg-amber-500 after:absolute after:left-2.5 after:top-1/2 after:h-1.25 after:w-1.25 after:-translate-y-1/2 after:animate-ping after:rounded-full after:bg-amber-500"
+				>{{ t('settings.sourceSaved') }}</span
+			>
 		</div>
 
-		<div class="module-main-container">
-			<div class="source-container">
-				<div class="source-main-container">
-					<ul ref="container">
+		<div
+			class="grid h-[calc(100vh-106px)] grid-cols-[200px_1fr] gap-2 [&>div]:overflow-hidden [&>div]:rounded-xl [&>div]:border [&>div]:border-white/50 [&>div]:bg-white/10 [&>div]:shadow-[inset_4px_2px_8px_rgb(255_255_255_/_50%)] [&>div]:backdrop-blur-[20px]"
+		>
+			<div class="grid grid-rows-[1fr_50px]">
+				<div>
+					<ul ref="container" class="relative z-2 flex h-full flex-col gap-1.5 overflow-y-auto p-2.5">
 						<li v-for="item in list" :key="item.key" :data-swapy-slot="item.key">
-							<div :data-swapy-item="item.key" :data-selected="selected.type === item.type" @click="selectSource(item)">
-								<img :src="item.icon" :alt="item.type" />
+							<div
+								class="flex cursor-pointer items-center gap-2.5 rounded-md border border-transparent p-1 transition-all hover:border-white/50 hover:bg-white/10 hover:shadow-[inset_4px_2px_8px_rgb(255_255_255_/_50%)] hover:backdrop-blur-[20px] data-[selected=true]:border-white/50 data-[selected=true]:bg-white/10 data-[selected=true]:shadow-[inset_4px_2px_8px_rgb(255_255_255_/_50%)] data-[selected=true]:backdrop-blur-[20px]"
+								:data-swapy-item="item.key"
+								:data-selected="selected.type === item.type"
+								@click="selectSource(item)"
+							>
+								<img
+									class="h-7.5 w-7.5 rounded-md border border-white/50 bg-white/10 p-1.5 shadow-[inset_4px_2px_8px_rgb(255_255_255_/_50%)] backdrop-blur-[20px]"
+									:src="item.icon"
+									:alt="item.type"
+								/>
 								<span>{{ item.name }}</span>
 							</div>
 						</li>
 					</ul>
 				</div>
-				<div class="source-footer-container">
+				<div class="flex items-center justify-end gap-1 border-t border-gray-100 px-3">
 					<ShadcnButton :disabled="list.length === 1" @click="removeSource">
 						<IconifyMinus class="iconify" />
 					</ShadcnButton>
@@ -182,17 +196,25 @@
 					</ShadcnButton>
 				</div>
 			</div>
-			<div class="source-config-container">
-				<div class="source-config-header">
+			<div class="overflow-y-auto p-6">
+				<div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-5">
 					<div>
-						<h2>{{ selected.name }}</h2>
-						<p>{{ selected.hint ?? t('settings.sourceCustomHint') }}</p>
+						<h2 class="text-lg leading-tight">{{ selected.name }}</h2>
+						<p class="mt-1.5 text-xs text-gray-400">{{ selected.hint ?? t('settings.sourceCustomHint') }}</p>
 					</div>
-					<img :src="selected.icon" :alt="selected.type" />
+					<img
+						class="h-12 w-12 rounded-[10px] border border-gray-100 bg-[#ffffff1d] p-2 shadow-[inset_4px_2px_8px_#ffffff7e] backdrop-blur-[20px]"
+						:src="selected.icon"
+						:alt="selected.type"
+					/>
 				</div>
-				<div class="source-config-main">
-					<label v-for="item in selected.options" :key="item.key">
-						<span>{{ item.name }}</span>
+				<div class="grid gap-3.5 pt-5">
+					<label
+						v-for="item in selected.options"
+						:key="item.key"
+						class="grid grid-cols-[80px_1fr] items-center gap-4 text-xs"
+					>
+						<span class="text-right">{{ item.name }}</span>
 						<ShadcnInput
 							v-if="item.type === 'input'"
 							v-model="selectedValues[item.key]"
@@ -200,176 +222,14 @@
 						/>
 					</label>
 				</div>
-				<div class="source-config-footer">
+				<div class="mt-5 text-right">
 					<ShadcnButton>{{ t('settings.sourceValidate') }}</ShadcnButton>
 				</div>
 			</div>
 		</div>
-
-		<AppModal v-model="showProviderPicker" :title="t('settings.sourceAdd')" width="420px">
-			<div class="provider-picker-list">
-				<button v-for="provider in sourceProviders" :key="provider.key" type="button" @click="addSource(provider)">
-					<img :src="provider.icon" :alt="provider.type" />
-					<span>{{ provider.name }}</span>
-				</button>
-			</div>
-		</AppModal>
 	</div>
 </template>
 
 <style scoped lang="scss">
-	@use '../style.scss';
-
-	.module-main-container {
-		display: grid;
-		grid-template-columns: 200px 1fr;
-		gap: 8px;
-		height: calc(100vh - 36px - 20px - 50px);
-		> div {
-			@include glass-effect;
-			border-radius: 12px;
-			overflow: hidden;
-		}
-		.source-container {
-			display: grid;
-			grid-template-rows: 1fr 50px;
-			.source-main-container {
-				ul {
-					position: relative;
-					z-index: 2;
-					padding: 10px;
-					display: flex;
-					flex-direction: column;
-					gap: 6px;
-					overflow-y: auto;
-					height: 100%;
-					li {
-						> div {
-							padding: 4px;
-							display: flex;
-							gap: 10px;
-							align-items: center;
-							border: 1px solid transparent;
-							border-radius: 6px;
-							transition:
-								background-color 0.3s,
-								border 0.3s,
-								box-shadow 0.3s,
-								backdrop-filter 0.3s;
-							cursor: pointer;
-
-							img {
-								width: 30px;
-								height: 30px;
-								padding: 6px;
-								@include glass-effect;
-								border-radius: 6px;
-								transition: all 0.2s;
-							}
-							&[data-selected='true'] {
-								@include glass-effect;
-								img {
-									background-color: none;
-									border: 1px solid transparent;
-									box-shadow: none;
-									backdrop-filter: none;
-								}
-							}
-						}
-					}
-				}
-			}
-			.source-footer-container {
-				padding: 0 12px;
-				display: flex;
-				gap: 4px;
-				align-items: center;
-				justify-content: flex-end;
-				border-top: 1px solid #ffffff7e;
-			}
-		}
-		.source-config-container {
-			padding: 24px;
-			overflow-y: auto;
-			.source-config-header {
-				display: flex;
-				align-items: flex-start;
-				justify-content: space-between;
-				gap: 16px;
-				padding-bottom: 20px;
-				border-bottom: 1px solid #ffffff7e;
-				h2 {
-					font-size: 18px;
-					line-height: 1.2;
-				}
-				p {
-					margin-top: 6px;
-					color: #89909a;
-					font-size: 12px;
-				}
-				img {
-					width: 42px;
-					height: 42px;
-					padding: 8px;
-					@include glass-effect;
-					border-radius: 10px;
-				}
-			}
-			.source-config-main {
-				display: grid;
-				gap: 14px;
-				padding-top: 20px;
-				label {
-					display: grid;
-					grid-template-columns: 80px 1fr;
-					align-items: center;
-					gap: 16px;
-					font-size: 12px;
-					span {
-						text-align: right;
-					}
-				}
-			}
-			.source-config-footer {
-				margin-top: 20px;
-				text-align: right;
-			}
-		}
-	}
-
-	.provider-picker-list {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 8px;
-
-		button {
-			display: grid;
-			place-items: center;
-			gap: 8px;
-			padding: 14px 8px;
-			border: 1px solid transparent;
-			border-radius: 8px;
-			background: #ffffff24;
-			color: inherit;
-			font: inherit;
-			font-size: 12px;
-			cursor: pointer;
-			transition:
-				background-color 0.2s,
-				border-color 0.2s;
-
-			&:hover {
-				border-color: #ffffffb8;
-				background: #ffffff52;
-			}
-
-			img {
-				width: 34px;
-				height: 34px;
-				padding: 7px;
-				@include glass-effect;
-				border-radius: 8px;
-			}
-		}
-	}
+	/** */
 </style>

@@ -7,5 +7,4 @@
 <template>
 	<main>{{ t('windows.selection') }}</main>
 	<ShadcnToaster />
-	<AppModal />
 </template>

@@ -9,9 +9,5 @@
 		{{ t('windows.input') }}
 	</main>
 	<ShadcnToaster />
-	<AppModal />
 </template>
 
-<style scoped lang="scss">
-	/** */
-</style>
