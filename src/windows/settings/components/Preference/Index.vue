@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import type { Menus } from '@windows/settings/components/Preference/types'
 	import type { LocalePreference } from '@i18n'
+	import { getLocalePreference, setLocale } from '@i18n'
 	import { useI18n } from 'vue-i18n'
 	import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 	import { disable, enable, isEnabled } from '@tauri-apps/plugin-autostart'
@@ -14,7 +15,6 @@
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
 	import { toast } from '@/composables/toast'
-	import { getLocalePreference, setLocale } from '@i18n'
 
 	const { t } = useI18n()
 
