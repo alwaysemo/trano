@@ -362,7 +362,7 @@
 				</ul>
 			</section>
 			<div class="mb-6 flex items-center justify-end gap-1">
-				<IconifySave class="h-3.5 w-3.5" />
+				<IconifySave class="h-3 w-3" />
 				<span class="text-xs">{{ t('settings.autoSave') }}</span>
 			</div>
 		</div>

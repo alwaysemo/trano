@@ -24,6 +24,7 @@
 <template>
 	<SelectPortal>
 		<SelectContent
+			v-motion-slide-visible-bottom
 			data-slot="select-content"
 			:data-align-trigger="position === 'item-aligned'"
 			v-bind="{ ...$attrs, ...forwarded }"
