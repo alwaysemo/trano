@@ -8,8 +8,8 @@
 	<main>
 		{{ t('windows.input') }}
 	</main>
-	<BaseToast />
-	<BaseModal />
+	<ShadcnToaster />
+	<AppModal />
 </template>
 
 <style scoped lang="scss">

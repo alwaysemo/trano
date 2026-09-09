@@ -13,7 +13,7 @@
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
-	import { toast } from '@components/base/Toast/toast'
+	import { toast } from '@/composables/toast'
 	import { getLocalePreference, setLocale } from '@i18n'
 
 	const { t } = useI18n()
@@ -308,7 +308,7 @@
 						</div>
 						<div class="content-container">
 							<template v-if="item.key === 'autoUpdate'">
-								<BaseButton
+								<ShadcnButton
 									class="check-update-button"
 									type="button"
 									:disabled="isCheckingUpdate || isInstallingUpdate"
@@ -316,8 +316,8 @@
 								>
 									<IconifyRefreshCw class="iconify" />
 									{{ t(isCheckingUpdate ? 'settings.checkingUpdates' : 'settings.checkForUpdates') }}
-								</BaseButton>
-								<BaseButton
+								</ShadcnButton>
+								<ShadcnButton
 									v-if="availableUpdate"
 									class="update-button"
 									type="button"
@@ -326,11 +326,20 @@
 								>
 									<IconifyDownload class="iconify" />
 									{{ t(isInstallingUpdate ? 'settings.updateInstalling' : 'settings.updateNow') }}
-								</BaseButton>
+								</ShadcnButton>
 							</template>
-							<BaseSwitch v-if="item.type === 'switch'" v-model="state[item.key]" />
-							<BaseSelect v-else-if="item.type === 'select'" v-model="state[item.key]" :options="item.options" />
-							<BaseSlider
+							<ShadcnSwitch v-if="item.type === 'switch'" v-model="state[item.key]" />
+							<ShadcnSelect v-else-if="item.type === 'select'" v-model="state[item.key]">
+								<ShadcnSelectTrigger>
+									<ShadcnSelectValue />
+								</ShadcnSelectTrigger>
+								<ShadcnSelectContent>
+									<ShadcnSelectItem v-for="option in item.options" :key="option.value" :value="option.value">
+										{{ option.flag }} {{ option.label }}
+									</ShadcnSelectItem>
+								</ShadcnSelectContent>
+							</ShadcnSelect>
+							<ShadcnSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
 								:min="12"

@@ -6,6 +6,6 @@
 
 <template>
 	<main>{{ t('windows.screenshot') }}</main>
-	<BaseToast />
-	<BaseModal />
+	<ShadcnToaster />
+	<AppModal />
 </template>

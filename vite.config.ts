@@ -10,7 +10,19 @@ const port: number = Number(process.env.TAURI_DEV_PORT || 3000)
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-	plugins: [vue(), tailwindcss(), viteComponents({ directoryAsNamespace: false })],
+	plugins: [
+		vue(),
+		tailwindcss(),
+		viteComponents({
+			dts: true,
+			directoryAsNamespace: false,
+			resolvers: [
+				(name) => {
+					if (name.startsWith('Shadcn')) return { name: name.slice(6), from: '@components/ui' }
+				},
+			],
+		}),
+	],
 	// 防止 Vite 清除 Rust 显示的错误
 	clearScreen: false,
 
@@ -28,7 +40,7 @@ export default defineConfig(async () => ({
 	css: {
 		preprocessorOptions: {
 			scss: {
-				additionalData: `@use "@assets/styles/variable.scss" as *;`,
+				additionalData: `@use "@assets/styles/variable.scss" as *; @use "@assets/styles/tailwind.scss" as *;`,
 				charset: false,
 				outputStyle: 'compressed',
 				api: 'modern-compiler',

@@ -14,7 +14,6 @@ export interface ModalOptions {
 	cancelText?: string
 }
 
-// eslint-disable-next-line no-unused-vars
 type ModalResolver = (value: boolean | PromiseLike<boolean>) => void
 
 export interface ModalItem extends Required<ModalOptions> {

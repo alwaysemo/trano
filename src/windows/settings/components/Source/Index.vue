@@ -174,12 +174,12 @@
 					</ul>
 				</div>
 				<div class="source-footer-container">
-					<BaseButton :disabled="list.length === 1" @click="removeSource">
+					<ShadcnButton :disabled="list.length === 1" @click="removeSource">
 						<IconifyMinus class="iconify" />
-					</BaseButton>
-					<BaseButton @click="openProviderPicker">
+					</ShadcnButton>
+					<ShadcnButton @click="openProviderPicker">
 						<IconifyPlus class="iconify" />
-					</BaseButton>
+					</ShadcnButton>
 				</div>
 			</div>
 			<div class="source-config-container">
@@ -193,7 +193,7 @@
 				<div class="source-config-main">
 					<label v-for="item in selected.options" :key="item.key">
 						<span>{{ item.name }}</span>
-						<BaseInput
+						<ShadcnInput
 							v-if="item.type === 'input'"
 							v-model="selectedValues[item.key]"
 							:placeholder="item.placeholder"
@@ -201,19 +201,19 @@
 					</label>
 				</div>
 				<div class="source-config-footer">
-					<BaseButton>{{ t('settings.sourceValidate') }}</BaseButton>
+					<ShadcnButton>{{ t('settings.sourceValidate') }}</ShadcnButton>
 				</div>
 			</div>
 		</div>
 
-		<BaseModal v-model="showProviderPicker" :title="t('settings.sourceAdd')" width="420px">
+		<AppModal v-model="showProviderPicker" :title="t('settings.sourceAdd')" width="420px">
 			<div class="provider-picker-list">
 				<button v-for="provider in sourceProviders" :key="provider.key" type="button" @click="addSource(provider)">
 					<img :src="provider.icon" :alt="provider.type" />
 					<span>{{ provider.name }}</span>
 				</button>
 			</div>
-		</BaseModal>
+		</AppModal>
 	</div>
 </template>
 

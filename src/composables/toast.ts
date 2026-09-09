@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { toast as sonnerToast } from 'vue-sonner'
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info'
 
@@ -8,40 +8,28 @@ export interface ToastOptions {
 	duration?: number
 }
 
-export interface ToastItem extends Required<Omit<ToastOptions, 'duration'>> {
-	id: number
-	duration: number
-}
-
-const items = reactive<ToastItem[]>([])
 let nextId = 0
 
 function show(messageOrOptions: string | ToastOptions, type: ToastType = 'info') {
 	const options = typeof messageOrOptions === 'string' ? { message: messageOrOptions, type } : messageOrOptions
-	const item: ToastItem = {
-		id: nextId++,
-		message: options.message,
-		type: options.type ?? 'info',
+	const id = nextId++
+	sonnerToast[options.type ?? 'info'](options.message, {
+		id: String(id),
 		duration: options.duration ?? 3000,
-	}
-
-	items.push(item)
-	if (items.length > 4) items.shift()
-	return item.id
+	})
+	return id
 }
 
 function remove(id: number) {
-	const index = items.findIndex((item) => item.id === id)
-	if (index !== -1) items.splice(index, 1)
+	sonnerToast.dismiss(String(id))
 }
 
 export const toast = {
-	items,
 	show,
 	success: (message: string, duration?: number) => show({ message, type: 'success', duration }),
 	error: (message: string, duration?: number) => show({ message, type: 'error', duration }),
 	warning: (message: string, duration?: number) => show({ message, type: 'warning', duration }),
 	info: (message: string, duration?: number) => show({ message, type: 'info', duration }),
 	remove,
-	clear: () => items.splice(0),
+	clear: () => sonnerToast.dismiss(),
 }

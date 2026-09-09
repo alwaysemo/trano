@@ -105,8 +105,8 @@
 			</main>
 		</section>
 	</div>
-	<BaseToast />
-	<BaseModal />
+	<ShadcnToaster />
+	<AppModal />
 </template>
 
 <style lang="scss" scoped>

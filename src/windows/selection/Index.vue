@@ -6,6 +6,6 @@
 
 <template>
 	<main>{{ t('windows.selection') }}</main>
-	<BaseToast />
-	<BaseModal />
+	<ShadcnToaster />
+	<AppModal />
 </template>
