@@ -8,7 +8,6 @@ import { toast } from '@/composables/toast'
 export const useAutoUpdate = (autoUpdate: Ref<boolean>) => {
 	const { t } = useI18n()
 	const availableUpdate = ref<Update | null>(null)
-	const updateVersion = ref<string | null>(null)
 	const isInstallingUpdate = ref(false)
 	const isCheckingUpdate = ref(false)
 
@@ -19,7 +18,6 @@ export const useAutoUpdate = (autoUpdate: Ref<boolean>) => {
 		try {
 			const update = await check()
 			availableUpdate.value = update
-			updateVersion.value = update?.version ?? null
 			if (update) {
 				toast.success(t('settings.updateFound', { version: update.version }))
 			} else {
@@ -49,12 +47,10 @@ export const useAutoUpdate = (autoUpdate: Ref<boolean>) => {
 
 	const clearAvailableUpdate = () => {
 		availableUpdate.value = null
-		updateVersion.value = null
 	}
 
 	return {
 		availableUpdate,
-		updateVersion,
 		isInstallingUpdate,
 		isCheckingUpdate,
 		checkForUpdates,

@@ -1,77 +1,30 @@
 <script setup lang="ts">
-	import type { Menus } from './types'
-	import type { LocalePreference } from './utils/language'
-	import { useI18n } from 'vue-i18n'
+	import type { PreferencesType } from './services/preferences'
 	import { computed, onMounted, reactive, watch } from 'vue'
-	import { invoke } from '@tauri-apps/api/core'
-	import IconifyDownload from '@iconify-vue/lucide/download'
+	import { useI18n } from 'vue-i18n'
 	import IconifyRefreshCw from '@iconify-vue/lucide/refresh-cw'
 	import IconifyGlobe from '@iconify-vue/lucide/globe-2'
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
-	import { useAutoUpdate } from './utils/auto_update'
-	import { DEFAULT_FONT_SIZE, FONT_SIZE_MAX, FONT_SIZE_MIN, FONT_SIZE_STEP } from './utils/font_size'
-	import { getLanguagePreference, setLanguagePreference } from './utils/language'
-	import { isLaunchLoginEnabled, setLaunchLogin } from './utils/launch_login'
-	import { DEFAULT_POSITION, normalizePosition } from './utils/position'
-	import { setShowInDock, DEFAULT_SHOW_IN_DOCK } from './utils/show_in_dock'
-	import { DEFAULT_SMART_TRANSLATE } from './utils/smart_translate'
+	import { getLanguage, setLanguage } from './services/language'
+	import { loadLaunchLogin, saveLaunchLogin } from './services/launchLogin'
+	import { loadPreferences, savePreferences } from './services/preferences'
+	import { setShowInDock } from './services/showInDock'
 
 	const { t } = useI18n()
 
-	const state = reactive({
-		language: getLanguagePreference(),
+	const state = reactive<PreferencesType>({
+		language: getLanguage(),
 		launch_login: false,
 		auto_update: true,
-		show_in_dock: DEFAULT_SHOW_IN_DOCK,
-		position: DEFAULT_POSITION,
-		font_size: DEFAULT_FONT_SIZE,
-		smart_translate: DEFAULT_SMART_TRANSLATE,
+		show_in_dock: false,
+		position: 'cneter',
+		font_size: 14,
+		smart_translate: true,
 	})
-	type PreferenceState = typeof state
-	const {
-		availableUpdate,
-		isInstallingUpdate,
-		isCheckingUpdate,
-		checkForUpdates,
-		installUpdate,
-		clearAvailableUpdate,
-	} = useAutoUpdate(computed(() => state.auto_update))
-	let isLoading = true
 
-	const loadPreferences = async () => {
-		const preferences = await invoke<{
-			language: LocalePreference
-			auto_update: boolean
-			show_in_dock: boolean
-			position: string
-			font_size: number
-			smart_translate: boolean
-		}>('load_preferences')
-
-		state.language = preferences.language
-		state.auto_update = preferences.auto_update
-		state.show_in_dock = preferences.show_in_dock
-		state.position = normalizePosition(preferences.position)
-		state.font_size = preferences.font_size
-		state.smart_translate = preferences.smart_translate
-	}
-
-	const savePreferences = () => {
-		void invoke('save_preferences', {
-			preferences: {
-				language: state.language,
-				auto_update: state.auto_update,
-				show_in_dock: state.show_in_dock,
-				position: state.position,
-				font_size: state.font_size,
-				smart_translate: state.smart_translate,
-			},
-		}).catch((error) => console.error('保存偏好设置失败:', error))
-	}
-
-	const list = computed<Array<Menus<PreferenceState>>>(() => [
+	const list = computed(() => [
 		{
 			title: t('settings.groups.general'),
 			description: t('settings.groups.generalDescription'),
@@ -154,46 +107,24 @@
 		},
 	])
 
-	watch(
-		() => state.language,
-		(language) => setLanguagePreference(language),
-	)
-
 	onMounted(async () => {
-		try {
-			await loadPreferences()
-			state.launch_login = await isLaunchLoginEnabled()
-			await checkForUpdates()
-		} catch (error) {
-			console.error('读取开机自启设置失败:', error)
-		} finally {
-			isLoading = false
-		}
+		Object.assign(state, await loadPreferences())
+		state.launch_login = await loadLaunchLogin()
 	})
 
 	watch(
-		() => state.launch_login,
-		async (enabled) => {
-			if (!(await setLaunchLogin(enabled))) state.launch_login = !enabled
-		},
+		() => state.language,
+		(language) => setLanguage(language),
 	)
 
 	watch(
-		() => state.auto_update,
-		(enabled) => {
-			if (isLoading) return
-			if (enabled) {
-				void checkForUpdates()
-			} else {
-				clearAvailableUpdate()
-			}
-		},
+		() => state.launch_login,
+		async (enabled) => await saveLaunchLogin(enabled),
 	)
 
 	watch(
 		() => state.show_in_dock,
 		(show) => {
-			if (isLoading) return
 			setShowInDock(show)
 		},
 	)
@@ -201,7 +132,15 @@
 	watch(
 		state,
 		() => {
-			savePreferences()
+			void savePreferences({
+				language: state.language,
+				launch_login: state.launch_login,
+				auto_update: state.auto_update,
+				show_in_dock: state.show_in_dock,
+				position: state.position,
+				font_size: state.font_size,
+				smart_translate: state.smart_translate,
+			}).catch((error) => console.error('保存偏好设置失败:', error))
 		},
 		{ deep: true },
 	)
@@ -244,26 +183,9 @@
 						</div>
 						<div class="flex items-center gap-2.5">
 							<template v-if="item.key === 'auto_update'">
-								<ShadcnButton
-									class="check-update-button"
-									type="button"
-									size="sm"
-									:disabled="isCheckingUpdate || isInstallingUpdate"
-									@click="checkForUpdates(true)"
-								>
+								<ShadcnButton class="check-update-button" type="button" size="sm">
 									<IconifyRefreshCw class="iconify" />
-									{{ isCheckingUpdate ? t('settings.checkingUpdates') : t('settings.checkForUpdates') }}
-								</ShadcnButton>
-								<ShadcnButton
-									v-if="availableUpdate"
-									class="update-button"
-									type="button"
-									size="sm"
-									:disabled="isInstallingUpdate"
-									@click="installUpdate"
-								>
-									<IconifyDownload class="iconify" />
-									{{ isInstallingUpdate ? t('settings.updateInstalling') : t('settings.updateNow') }}
+									{{ t('settings.checkForUpdates') }}
 								</ShadcnButton>
 							</template>
 							<ShadcnSwitch v-if="item.type === 'switch'" v-model="state[item.key]" />
@@ -280,9 +202,9 @@
 							<ShadcnSlider
 								v-else-if="item.type === 'slider'"
 								v-model="state[item.key]"
-								:min="FONT_SIZE_MIN"
-								:max="FONT_SIZE_MAX"
-								:step="FONT_SIZE_STEP"
+								:min="10"
+								:max="32"
+								:step="2"
 								class="w-30"
 							/>
 						</div>

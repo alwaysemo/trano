@@ -9,10 +9,12 @@ import pt from './locales/pt.json'
 import zhCN from './locales/zh-CN.json'
 import zhTW from './locales/zh-TW.json'
 
+export const DEFAULT_LOCALE = 'en' as const
+
 export const i18n = createI18n({
 	legacy: false,
-	locale: 'en',
-	fallbackLocale: 'en',
+	locale: DEFAULT_LOCALE,
+	fallbackLocale: DEFAULT_LOCALE,
 	messages: {
 		en,
 		'zh-CN': zhCN,
