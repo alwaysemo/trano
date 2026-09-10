@@ -7,7 +7,6 @@
 	import IconifyGlobe from '@iconify-vue/lucide/globe-2'
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
-	import IconifySave from '@iconify-vue/lucide/save'
 	import { getSystemLanguage, getLanguage, setLanguage } from './services/language'
 	import { loadLaunchLogin, saveLaunchLogin } from './services/launchLogin'
 	import { setShowInDock } from './services/showInDock'
@@ -156,7 +155,7 @@
 				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.preferenceTitle') }}</h1>
 			</div>
 			<div
-				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-2 px-2 leading-none"
+				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-1 px-2 leading-none"
 				data-status="updated"
 			>
 				<em>~</em>
@@ -213,10 +212,6 @@
 					</li>
 				</ul>
 			</section>
-			<div class="mb-6 flex items-center justify-end gap-1">
-				<IconifySave class="h-3 w-3" />
-				<span class="text-xs">{{ t('settings.autoSave') }}</span>
-			</div>
 		</div>
 	</div>
 </template>

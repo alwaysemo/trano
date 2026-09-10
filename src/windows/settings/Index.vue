@@ -13,13 +13,13 @@
 	import IconifyKeyboard from '@iconify-vue/lucide/keyboard'
 	import IconifyGlobe from '@iconify-vue/lucide/globe'
 	import IconifyUsersRound from '@iconify-vue/lucide/users-round'
-	import Mine from './components/Mine.vue'
+	import Mine from './components/Mine/Index.vue'
 	import Preference from './components/Preference/Index.vue'
-	import ShortcutKey from './components/ShortcutKey.vue'
-	import Record from './components/Record.vue'
+	import ShortcutKey from './components/ShortcutKey/Index.vue'
+	import Record from './components/Record/Index.vue'
 	import Source from './components/Source/Index.vue'
-	import Network from './components/Network.vue'
-	import About from './components/About.vue'
+	import Network from './components/Network/Index.vue'
+	import About from './components/About/Index.vue'
 
 	const { t } = useI18n()
 

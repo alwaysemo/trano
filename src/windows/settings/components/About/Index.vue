@@ -8,8 +8,8 @@
 	<div>
 		<div class="flex items-center justify-between pb-4.5">
 			<div>
-				<p class="text-xs font-thin text-gray-400">TRANO / SOURCE</p>
-				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.source') }}</h1>
+				<p class="text-xs font-thin text-gray-400">TRANO / ABOUT</p>
+				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.about') }}</h1>
 			</div>
 			<div
 				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-1 px-2 leading-none"
