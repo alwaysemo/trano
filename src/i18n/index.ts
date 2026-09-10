@@ -1,37 +1,37 @@
 import { createI18n } from 'vue-i18n'
 import { invoke } from '@tauri-apps/api/core'
-import de from './locales/de.json'
-import en from './locales/en.json'
-import es from './locales/es.json'
-import fr from './locales/fr.json'
-import ja from './locales/ja.json'
-import ko from './locales/ko.json'
-import pt from './locales/pt.json'
+import deDE from './locales/de-DE.json'
+import enUS from './locales/en-US.json'
+import esES from './locales/es-ES.json'
+import frFR from './locales/fr-FR.json'
+import jaJP from './locales/ja-JP.json'
+import koKR from './locales/ko-KR.json'
+import ptPT from './locales/pt-PT.json'
 import zhCN from './locales/zh-CN.json'
 import zhTW from './locales/zh-TW.json'
 
-export const default_language = 'en' as const
+export const default_language = 'en-US' as const
 
-export type LocaleType = 'de' | 'en' | 'es' | 'fr' | 'ja' | 'ko' | 'pt' | 'zh-CN' | 'zh-TW'
+export type LocaleType = 'de-DE' | 'en-US' | 'es-ES' | 'fr-FR' | 'ja-JP' | 'ko-KR' | 'pt-PT' | 'zh-CN' | 'zh-TW'
 
 export const i18n = createI18n({
 	legacy: false,
 	locale: default_language,
 	fallbackLocale: default_language,
 	messages: {
-		en,
+		'de-DE': deDE,
+		'en-US': enUS,
+		'es-ES': esES,
+		'fr-FR': frFR,
+		'ja-JP': jaJP,
+		'ko-KR': koKR,
+		'pt-PT': ptPT,
 		'zh-CN': zhCN,
 		'zh-TW': zhTW,
-		ja,
-		ko,
-		fr,
-		es,
-		de,
-		pt,
 	},
 })
 
-const locales = new Set<LocaleType>(['de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'zh-CN', 'zh-TW'])
+const locales = new Set<LocaleType>(['de-DE', 'en-US', 'es-ES', 'fr-FR', 'ja-JP', 'ko-KR', 'pt-PT', 'zh-CN', 'zh-TW'])
 
 export const initializeLanguage = async () => {
 	try {

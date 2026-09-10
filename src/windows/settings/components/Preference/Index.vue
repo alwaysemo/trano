@@ -8,7 +8,7 @@
 	import IconifyMonitor from '@iconify-vue/lucide/monitor'
 	import IconifySparkles from '@iconify-vue/lucide/sparkles'
 	import IconifySave from '@iconify-vue/lucide/save'
-	import { getLanguage, setLanguage } from './services/language'
+	import { getSystemLanguage, getLanguage, setLanguage } from './services/language'
 	import { loadLaunchLogin, saveLaunchLogin } from './services/launchLogin'
 	import { setShowInDock } from './services/showInDock'
 
@@ -39,13 +39,13 @@
 						{ label: t('settings.options.default'), value: 'default', flag: '🌐' },
 						{ label: t('settings.options.zhCN'), value: 'zh-CN', flag: '🇨🇳' },
 						{ label: t('settings.options.zhTW'), value: 'zh-TW', flag: '🇨🇳' },
-						{ label: t('settings.options.en'), value: 'en', flag: '🇺🇸' },
-						{ label: t('settings.options.ja'), value: 'ja', flag: '🇯🇵' },
-						{ label: t('settings.options.ko'), value: 'ko', flag: '🇰🇷' },
-						{ label: t('settings.options.fr'), value: 'fr', flag: '🇫🇷' },
-						{ label: t('settings.options.es'), value: 'es', flag: '🇪🇸' },
-						{ label: t('settings.options.de'), value: 'de', flag: '🇩🇪' },
-						{ label: t('settings.options.pt'), value: 'pt', flag: '🇵🇹' },
+						{ label: t('settings.options.en'), value: 'en-US', flag: '🇺🇸' },
+						{ label: t('settings.options.ja'), value: 'ja-JP', flag: '🇯🇵' },
+						{ label: t('settings.options.ko'), value: 'ko-KR', flag: '🇰🇷' },
+						{ label: t('settings.options.fr'), value: 'fr-FR', flag: '🇫🇷' },
+						{ label: t('settings.options.es'), value: 'es-ES', flag: '🇪🇸' },
+						{ label: t('settings.options.de'), value: 'de-DE', flag: '🇩🇪' },
+						{ label: t('settings.options.pt'), value: 'pt-PT', flag: '🇵🇹' },
 					],
 				},
 				{
@@ -134,7 +134,7 @@
 		() => {
 			invoke('save_preferences', {
 				preferences: {
-					language: state.language,
+					language: state.language === 'default' ? getSystemLanguage() : state.language,
 					launch_login: state.launch_login,
 					auto_update: state.auto_update,
 					show_in_dock: state.show_in_dock,
