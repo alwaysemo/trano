@@ -152,10 +152,10 @@
 		<div class="flex items-center justify-between pb-4.5">
 			<div>
 				<p class="text-xs font-thin text-gray-400">TRANO / PREFERENCE</p>
-				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.preferenceTitle') }}</h1>
+				<h1 class="mt-1 text-2xl leading-none font-bold">{{ t('settings.preferenceTitle') }}</h1>
 			</div>
 			<div
-				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-1 px-2 leading-none"
+				class="trano-effect-glass flex items-center gap-2 rounded-[20px] px-2 py-1 leading-none"
 				data-status="updated"
 			>
 				<em>~</em>
@@ -166,17 +166,17 @@
 		<div class="grid h-[calc(100vh-36px-62px)] gap-6 overflow-y-auto">
 			<section v-for="group in list" :key="group.title">
 				<div class="flex items-center gap-2 leading-none">
-					<component :is="group.icon" class="h-8 w-8 rounded-md trano-effect-glass p-2" />
+					<component :is="group.icon" class="trano-effect-glass h-8 w-8 rounded-md p-2" />
 					<div>
 						<h3 class="text-sm">{{ group.title }}</h3>
 						<p class="text-xs text-gray-400">{{ group.description }}</p>
 					</div>
 				</div>
-				<ul class="mt-2 rounded-xl trano-effect-glass">
+				<ul class="trano-effect-glass mt-2 rounded-xl">
 					<li
 						v-for="item in group.items"
 						:key="item.label"
-						class="flex items-center justify-between p-3 transition-all first:rounded-t-xl last:rounded-b-xl not-last:border-b not-last:border-white/50 hover:bg-white/25"
+						class="flex items-center justify-between p-3 transition-all not-last:border-b not-last:border-white/50 first:rounded-t-xl last:rounded-b-xl hover:bg-white/25"
 					>
 						<div class="flex flex-col gap-1 leading-none">
 							<strong class="text-sm">{{ item.label }}</strong>

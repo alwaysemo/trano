@@ -9,10 +9,10 @@
 		<div class="flex items-center justify-between pb-4.5">
 			<div>
 				<p class="text-xs font-thin text-gray-400">TRANO / SOURCE</p>
-				<h1 class="mt-1 text-2xl font-bold leading-none">{{ t('settings.source') }}</h1>
+				<h1 class="mt-1 text-2xl leading-none font-bold">{{ t('settings.source') }}</h1>
 			</div>
 			<div
-				class="flex items-center gap-2 rounded-[20px] trano-effect-glass py-1 px-2 leading-none"
+				class="trano-effect-glass flex items-center gap-2 rounded-[20px] px-2 py-1 leading-none"
 				data-status="updated"
 			>
 				<em>~</em>
@@ -20,7 +20,10 @@
 			</div>
 		</div>
 
-		<div class="grid h-[calc(100vh-36px-62px)] gap-6 overflow-y-auto"></div>
+		<div class="grid h-[calc(100vh-36px-62px)] grid-cols-[100px_1fr_100px] gap-6">
+			<div>1</div>
+			<div>2</div>
+		</div>
 	</div>
 </template>
 

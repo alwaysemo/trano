@@ -8,5 +8,6 @@
 	"singleQuote": true,
 	"bracketSpacing": true,
 	"quoteProps": "consistent",
-	"vueIndentScriptAndStyle": true
+	"vueIndentScriptAndStyle": true,
+	"plugins": ["prettier-plugin-tailwindcss"]
 }

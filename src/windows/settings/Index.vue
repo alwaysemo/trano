@@ -87,14 +87,14 @@
 					<IconifyMinimize class="h-2.5 w-2.5 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
 				</button>
 			</div>
-			<h1 class="text-center text-sm font-thin leading-none">Trano</h1>
+			<h1 class="text-center text-sm leading-none font-thin">Trano</h1>
 			<div></div>
 		</header>
 		<section class="section-container grid grid-cols-[minmax(180px,max-content)_minmax(0,1fr)]">
 			<aside class="sidebar-container p-2">
 				<nav class="relative h-[calc(100vh-56px)] overflow-y-auto">
 					<div
-						class="pointer-events-none absolute inset-x-0 top-0 z-0 h-15 rounded-xl trano-effect-glass transition-transform duration-300 ease-in-out"
+						class="trano-effect-glass pointer-events-none absolute inset-x-0 top-0 z-0 h-15 rounded-xl transition-transform duration-300 ease-in-out"
 						:style="{ transform: `translateY(${selectedNavIndex * 60}px)` }"
 					></div>
 					<div
