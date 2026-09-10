@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import type { PreferencesType } from './services/preferences'
+	import type { LocaleType } from '@i18n'
+	import { invoke } from '@tauri-apps/api/core'
 	import { computed, onMounted, reactive, watch } from 'vue'
 	import { useI18n } from 'vue-i18n'
 	import IconifyRefreshCw from '@iconify-vue/lucide/refresh-cw'
@@ -9,8 +10,17 @@
 	import IconifySave from '@iconify-vue/lucide/save'
 	import { getLanguage, setLanguage } from './services/language'
 	import { loadLaunchLogin, saveLaunchLogin } from './services/launchLogin'
-	import { loadPreferences, savePreferences } from './services/preferences'
 	import { setShowInDock } from './services/showInDock'
+
+	export type PreferencesType = {
+		language: LocaleType
+		launch_login: boolean
+		auto_update: boolean
+		show_in_dock: boolean
+		position: string
+		font_size: number
+		smart_translate: boolean
+	}
 
 	const { t } = useI18n()
 
@@ -36,7 +46,7 @@
 					type: 'select',
 					key: 'language',
 					options: [
-						{ label: t('settings.options.default'), value: 'default', flag: '🌐' },
+						{ label: t('settings.options.default'), value: state.language, flag: '🌐' },
 						{ label: t('settings.options.zhCN'), value: 'zh-CN', flag: '🇨🇳' },
 						{ label: t('settings.options.zhTW'), value: 'zh-TW', flag: '🇨🇳' },
 						{ label: t('settings.options.en'), value: 'en', flag: '🇺🇸' },
@@ -108,7 +118,7 @@
 	])
 
 	onMounted(async () => {
-		Object.assign(state, await loadPreferences())
+		Object.assign(state, await invoke<PreferencesType>('load_preferences'))
 		state.launch_login = await loadLaunchLogin()
 	})
 
@@ -132,14 +142,16 @@
 	watch(
 		state,
 		() => {
-			void savePreferences({
-				language: state.language,
-				launch_login: state.launch_login,
-				auto_update: state.auto_update,
-				show_in_dock: state.show_in_dock,
-				position: state.position,
-				font_size: state.font_size,
-				smart_translate: state.smart_translate,
+			invoke('save_preferences', {
+				preferences: {
+					language: state.language,
+					launch_login: state.launch_login,
+					auto_update: state.auto_update,
+					show_in_dock: state.show_in_dock,
+					position: state.position,
+					font_size: state.font_size,
+					smart_translate: state.smart_translate,
+				},
 			}).catch((error) => console.error('保存偏好设置失败:', error))
 		},
 		{ deep: true },
