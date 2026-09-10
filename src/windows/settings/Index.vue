@@ -94,7 +94,7 @@
 			<aside class="sidebar-container p-2">
 				<nav class="relative h-[calc(100vh-56px)] overflow-y-auto">
 					<div
-						class="trano-effect-glass pointer-events-none absolute inset-x-0 top-0 z-0 h-15 rounded-xl transition-transform duration-300 ease-in-out"
+						class="trano-effect-glass pointer-events-none absolute inset-x-0 top-0 z-0 h-15 rounded-lg transition-transform duration-300 ease-in-out"
 						:style="{ transform: `translateY(${selectedNavIndex * 60}px)` }"
 					></div>
 					<div

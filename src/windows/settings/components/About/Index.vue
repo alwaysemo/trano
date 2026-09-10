@@ -12,7 +12,7 @@
 				<h1 class="mt-1 text-2xl leading-none font-bold">{{ t('settings.about') }}</h1>
 			</div>
 			<div
-				class="trano-effect-glass flex items-center gap-2 rounded-[20px] px-2 py-1 leading-none"
+				class="trano-effect-glass flex items-center gap-2 rounded-lg px-2 py-1 leading-none"
 				data-status="updated"
 			>
 				<em>~</em>
