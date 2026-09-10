@@ -14,7 +14,7 @@
 	const props = defineProps<SliderProps>()
 	const emits = defineEmits<{
 		'update:modelValue': [payload: number | number[] | undefined]
-		valueCommit: [payload: number[]]
+		'valueCommit': [payload: number[]]
 	}>()
 
 	const delegatedProps = reactiveOmit(props, 'class', 'modelValue')
