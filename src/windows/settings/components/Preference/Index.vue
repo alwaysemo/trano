@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import type { LocaleType } from '@i18n'
+	import type { State, List } from './types'
 	import { invoke } from '@tauri-apps/api/core'
 	import { computed, onMounted, reactive, watch } from 'vue'
 	import { useI18n } from 'vue-i18n'
@@ -12,19 +12,9 @@
 	import { loadLaunchLogin, saveLaunchLogin } from './services/launchLogin'
 	import { setShowInDock } from './services/showInDock'
 
-	export type PreferencesType = {
-		language: LocaleType
-		launch_login: boolean
-		auto_update: boolean
-		show_in_dock: boolean
-		position: string
-		font_size: number
-		smart_translate: boolean
-	}
-
 	const { t } = useI18n()
 
-	const state = reactive<PreferencesType>({
+	const state = reactive<State>({
 		language: getLanguage(),
 		launch_login: false,
 		auto_update: true,
@@ -34,7 +24,7 @@
 		smart_translate: true,
 	})
 
-	const list = computed(() => [
+	const list = computed<List[]>(() => [
 		{
 			title: t('settings.groups.general'),
 			description: t('settings.groups.generalDescription'),
@@ -118,7 +108,7 @@
 	])
 
 	onMounted(async () => {
-		Object.assign(state, await invoke<PreferencesType>('load_preferences'))
+		Object.assign(state, await invoke<State>('load_preferences'))
 		state.launch_login = await loadLaunchLogin()
 	})
 
