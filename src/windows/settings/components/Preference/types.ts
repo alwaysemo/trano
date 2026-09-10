@@ -2,7 +2,7 @@ import type { LocaleType } from '@i18n'
 import type { Component } from 'vue'
 
 export interface State {
-	language: LocaleType
+	language: LocaleType | 'default'
 	launch_login: boolean
 	auto_update: boolean
 	show_in_dock: boolean

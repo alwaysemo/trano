@@ -36,7 +36,7 @@
 					type: 'select',
 					key: 'language',
 					options: [
-						{ label: t('settings.options.default'), value: state.language, flag: '🌐' },
+						{ label: t('settings.options.default'), value: 'default', flag: '🌐' },
 						{ label: t('settings.options.zhCN'), value: 'zh-CN', flag: '🇨🇳' },
 						{ label: t('settings.options.zhTW'), value: 'zh-TW', flag: '🇨🇳' },
 						{ label: t('settings.options.en'), value: 'en', flag: '🇺🇸' },

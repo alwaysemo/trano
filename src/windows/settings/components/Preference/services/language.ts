@@ -8,6 +8,6 @@ export const getLanguage = (): LocaleType => {
 	else return default_language
 }
 
-export const setLanguage = (locale: LocaleType) => {
-	i18n.global.locale.value = locale
+export const setLanguage = (locale: LocaleType | 'default') => {
+	i18n.global.locale.value = locale === 'default' ? getLanguage() : locale
 }

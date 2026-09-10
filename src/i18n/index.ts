@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'
+import { invoke } from '@tauri-apps/api/core'
 import de from './locales/de.json'
 import en from './locales/en.json'
 import es from './locales/es.json'
@@ -29,3 +30,16 @@ export const i18n = createI18n({
 		pt,
 	},
 })
+
+const locales = new Set<LocaleType>(['de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'zh-CN', 'zh-TW'])
+
+export const initializeLanguage = async () => {
+	try {
+		const preferences = await invoke<{ language: string }>('load_preferences')
+		if (locales.has(preferences.language as LocaleType)) {
+			i18n.global.locale.value = preferences.language as LocaleType
+		}
+	} catch (error) {
+		console.error('加载语言设置失败:', error)
+	}
+}
