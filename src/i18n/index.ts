@@ -31,13 +31,14 @@ export const i18n = createI18n({
 	},
 })
 
-const locales = new Set<LocaleType>(['de-DE', 'en-US', 'es-ES', 'fr-FR', 'ja-JP', 'ko-KR', 'pt-PT', 'zh-CN', 'zh-TW'])
+const locales = new Set<LocaleType>(Object.keys(i18n.global.messages.value) as LocaleType[])
 
 export const initializeLanguage = async () => {
 	try {
 		const preferences = await invoke<{ language: string }>('load_preferences')
-		if (locales.has(preferences.language as LocaleType)) {
-			i18n.global.locale.value = preferences.language as LocaleType
+		const locale = preferences.language as LocaleType
+		if (locales.has(locale)) {
+			i18n.global.locale.value = locale
 		}
 	} catch (error) {
 		console.error('加载语言设置失败:', error)
