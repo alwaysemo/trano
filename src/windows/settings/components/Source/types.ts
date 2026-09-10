@@ -1,14 +1,15 @@
-export type SourceOption = {
-	name: string
+export interface SourceOption {
 	key: string
 	type: 'input'
+	name: string
+	value: string
 	placeholder: string
 }
 
-export type Source = {
-	key: string
+export interface Source {
 	type: string
-	name: string
+	label: string
+	value: boolean
 	icon: string
 	hint?: string
 	options: SourceOption[]

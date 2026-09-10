@@ -184,7 +184,7 @@
 						</div>
 						<div class="flex items-center gap-2.5">
 							<template v-if="item.key === 'auto_update'">
-								<ShadcnButton class="check-update-button" type="button" size="sm">
+								<ShadcnButton class="check-update-button" type="button" size="xs">
 									<IconifyRefreshCw class="iconify" />
 									{{ t('settings.checkForUpdates') }}
 								</ShadcnButton>
