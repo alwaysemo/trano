@@ -74,6 +74,7 @@
 		"sourceSaved": "Saved",
 		"sourceBuiltInHint": "Built-in translation source - no setup required",
 		"sourceName": "Name",
+		"sourceNoConfiguration": "No configuration required",
 		"sourceAppId": "App ID",
 		"sourceAppKey": "App key",
 		"sourcePlaceholderName": "Enter translation source name",

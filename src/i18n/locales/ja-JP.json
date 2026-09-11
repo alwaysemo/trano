@@ -72,6 +72,7 @@
 		"sourceCustomHint": "カスタム翻訳ソース - 設定を完了してください",
 		"sourceGoogle": "Google 翻訳",
 		"sourceName": "名前",
+		"sourceNoConfiguration": "設定不要",
 		"sourcePlaceholderAppId": "App ID を入力",
 		"sourcePlaceholderAppKey": "App key を入力",
 		"sourcePlaceholderName": "翻訳ソース名を入力",

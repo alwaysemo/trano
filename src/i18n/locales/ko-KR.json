@@ -72,6 +72,7 @@
 		"sourceCustomHint": "사용자 정의 번역 소스 - 구성을 완료하세요",
 		"sourceGoogle": "Google 번역",
 		"sourceName": "이름",
+		"sourceNoConfiguration": "설정 필요 없음",
 		"sourcePlaceholderAppId": "App ID를 입력하세요",
 		"sourcePlaceholderAppKey": "App key를 입력하세요",
 		"sourcePlaceholderName": "번역 소스 이름을 입력하세요",

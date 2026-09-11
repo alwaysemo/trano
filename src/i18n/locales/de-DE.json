@@ -72,6 +72,7 @@
 		"sourceCustomHint": "Benutzerdefinierte Übersetzungsquelle - bitte konfigurieren",
 		"sourceGoogle": "Google Übersetzung",
 		"sourceName": "Name",
+		"sourceNoConfiguration": "Keine Konfiguration erforderlich",
 		"sourcePlaceholderAppId": "App-ID eingeben",
 		"sourcePlaceholderAppKey": "App-Schlüssel eingeben",
 		"sourcePlaceholderName": "Übersetzungsquellenname eingeben",

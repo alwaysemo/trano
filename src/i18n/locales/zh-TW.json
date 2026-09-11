@@ -72,6 +72,7 @@
 		"sourceCustomHint": "自訂翻譯來源 - 請完成設定",
 		"sourceGoogle": "Google 翻譯",
 		"sourceName": "名稱",
+		"sourceNoConfiguration": "無需設定",
 		"sourcePlaceholderAppId": "請輸入 AppID",
 		"sourcePlaceholderAppKey": "請輸入 AppKey",
 		"sourcePlaceholderName": "請輸入翻譯來源名稱",

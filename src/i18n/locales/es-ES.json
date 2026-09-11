@@ -72,6 +72,7 @@
 		"sourceCustomHint": "Fuente de traducción personalizada: completa la configuración",
 		"sourceGoogle": "Traducción de Google",
 		"sourceName": "Nombre",
+		"sourceNoConfiguration": "No requiere configuración",
 		"sourcePlaceholderAppId": "Introduce el ID de la aplicación",
 		"sourcePlaceholderAppKey": "Introduce la clave de la aplicación",
 		"sourcePlaceholderName": "Introduce el nombre de la fuente de traducción",

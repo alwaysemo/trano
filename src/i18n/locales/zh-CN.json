@@ -72,6 +72,7 @@
 		"sourceCustomHint": "自定义翻译源 - 请完成配置",
 		"sourceGoogle": "Google 翻译",
 		"sourceName": "名称",
+		"sourceNoConfiguration": "无需配置",
 		"sourcePlaceholderAppId": "请输入 AppID",
 		"sourcePlaceholderAppKey": "请输入 AppKey",
 		"sourcePlaceholderName": "请输入翻译源名称",

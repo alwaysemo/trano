@@ -16,30 +16,48 @@
 	const source = reactive<Source[]>([
 		{
 			type: 'google',
-			label: 'Google翻译',
+			label: t('settings.sourceGoogle'),
 			value: false,
 			icon: IconGoogle,
-			hint: '内置翻译源 - 无需配置',
+			hint: t('settings.sourceBuiltInHint'),
 			options: [],
 		},
 		{
 			type: 'bing',
-			label: 'Bing翻译',
+			label: t('settings.sourceBing'),
 			value: false,
 			icon: IconBing,
-			hint: '内置翻译源 - 无需配置',
+			hint: t('settings.sourceBuiltInHint'),
 			options: [],
 		},
 		{
 			type: 'baidu',
-			label: '百度翻译',
+			label: t('settings.sourceBaidu'),
 			value: false,
 			icon: IconBaidu,
-			hint: '百度翻译 - 您的超级翻译伙伴',
+			hint: t('settings.sourceCustomHint'),
 			options: [
-				{ key: 'name', type: 'input', value: '百度翻译', name: '百度翻译', placeholder: '请输入名称' },
-				{ key: 'app_id', type: 'input', value: '', name: 'AppId', placeholder: '请输入AppId' },
-				{ key: 'secret_key', type: 'input', value: '', name: 'SecretKey', placeholder: '请输入SecretKey' },
+				{
+					key: 'name',
+					type: 'input',
+					value: t(t('settings.sourceBaidu')),
+					name: t('settings.sourceName'),
+					placeholder: t('settings.sourcePlaceholderName'),
+				},
+				{
+					key: 'app_id',
+					type: 'input',
+					value: '',
+					name: t('settings.sourceAppId'),
+					placeholder: t('settings.sourcePlaceholderAppId'),
+				},
+				{
+					key: 'secret_key',
+					type: 'input',
+					value: '',
+					name: t('settings.sourceAppKey'),
+					placeholder: t('settings.sourcePlaceholderAppKey'),
+				},
 			],
 		},
 	])
@@ -110,10 +128,10 @@
 						<ShadcnInput v-model="option.value" type="text" :placeholder="option.placeholder" />
 					</div>
 					<div class="mt-6 flex justify-end">
-						<ShadcnButton type="button">验证</ShadcnButton>
+						<ShadcnButton type="button">{{ t('settings.sourceValidate') }}</ShadcnButton>
 					</div>
 				</div>
-				<p v-else class="py-8 text-center text-sm text-gray-400">无需配置</p>
+				<p v-else class="py-8 text-center text-sm text-gray-400">{{ t('settings.sourceNoConfiguration') }}</p>
 			</div>
 		</div>
 	</div>
