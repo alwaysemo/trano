@@ -35,6 +35,7 @@ declare module 'vue' {
     SelectTrigger: typeof import('./src/components/ui/select/SelectTrigger.vue')['default']
     SelectValue: typeof import('./src/components/ui/select/SelectValue.vue')['default']
     ShadcnButton: typeof import('@components/ui')['Button']
+    ShadcnInput: typeof import('@components/ui')['Input']
     ShadcnSelect: typeof import('@components/ui')['Select']
     ShadcnSelectContent: typeof import('@components/ui')['SelectContent']
     ShadcnSelectItem: typeof import('@components/ui')['SelectItem']

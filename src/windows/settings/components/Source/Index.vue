@@ -43,13 +43,14 @@
 			],
 		},
 	])
+	const selectedSource = ref<Source>(source[0]!)
 
 	onMounted(() => {
 		if (container.value) swapy.value = createSwapy(container.value)
 	})
 
 	onUnmounted(() => {
-		swapy.value?.destroy()
+		if (swapy.value) swapy.value.destroy()
 	})
 </script>
 
@@ -71,8 +72,10 @@
 				<ul class="h-[calc(100%-40px)] overflow-y-auto p-2" ref="container">
 					<li class="not-first:mt-2" v-for="item in source" :key="item.type" :data-swapy-slot="item.type">
 						<div
-							class="trano-effect-glass flex h-15 items-center gap-2 overflow-hidden rounded-md p-2"
+							class="flex h-15 cursor-pointer items-center gap-2 overflow-hidden rounded-md p-2"
 							:data-swapy-item="item.type"
+							:class="{ 'trano-effect-glass': selectedSource.type === item.type }"
+							@click="selectedSource = item"
 						>
 							<img class="h-8 w-8" :src="item.icon" :alt="item.label" />
 							<p class="mr-auto text-sm">{{ item.label }}</p>
@@ -89,8 +92,28 @@
 					</ShadcnButton>
 				</div>
 			</div>
-			<div class="trano-effect-glass rounded-lg p-2">
-
+			<div class="trano-effect-glass overflow-y-auto rounded-lg p-4">
+				<div class="flex items-center gap-3 border-b pb-4">
+					<img
+						class="trano-effect-glass h-12 w-12 rounded-md p-2"
+						:src="selectedSource.icon"
+						:alt="selectedSource.label"
+					/>
+					<div>
+						<h2 class="text-lg font-semibold">{{ selectedSource.label }}</h2>
+						<p class="text-xs text-gray-400">{{ selectedSource.hint }}</p>
+					</div>
+				</div>
+				<div v-if="selectedSource.options.length" class="mt-4 space-y-2">
+					<div v-for="option in selectedSource.options" :key="option.key">
+						<label class="pl-3 text-sm">{{ option.name }}</label>
+						<ShadcnInput v-model="option.value" type="text" :placeholder="option.placeholder" />
+					</div>
+					<div class="mt-6 flex justify-end">
+						<ShadcnButton type="button">验证</ShadcnButton>
+					</div>
+				</div>
+				<p v-else class="py-8 text-center text-sm text-gray-400">无需配置</p>
 			</div>
 		</div>
 	</div>
