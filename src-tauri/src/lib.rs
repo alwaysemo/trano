@@ -187,6 +187,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             config::load_preferences,
             config::save_preferences,
+            config::load_sources,
+            config::save_sources,
             config::set_icon_visibility
         ])
         // Tauri 插件

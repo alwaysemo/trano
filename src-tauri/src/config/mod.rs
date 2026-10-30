@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::fs;
 use tauri::{AppHandle, Manager};
 
 const SETTINGS_FILE_NAME: &str = "settings.json";
+const SOURCES_FILE_NAME: &str = "sources.json";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
@@ -78,4 +80,42 @@ pub fn save_preferences(app: AppHandle, preferences: Preferences) -> Result<(), 
     let content = serde_json::to_string_pretty(&preferences).map_err(|error| error.to_string())?;
     fs::write(path, content).map_err(|error| error.to_string())?;
     crate::refresh_tray_menu(&app, &preferences.language).map_err(|error| error.to_string())
+}
+
+/// 翻译源配置：前端按数组顺序展示，options 存放各翻译源所需的鉴权字段
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SourceConfig {
+    pub id: String,
+    pub enabled: bool,
+    #[serde(default)]
+    pub options: HashMap<String, String>,
+}
+
+fn sources_path(app: &AppHandle) -> Result<std::path::PathBuf, String> {
+    let config_dir = app
+        .path()
+        .app_config_dir()
+        .map_err(|error| error.to_string())?;
+    fs::create_dir_all(&config_dir).map_err(|error| error.to_string())?;
+    Ok(config_dir.join(SOURCES_FILE_NAME))
+}
+
+/// 返回 None 表示首次启动还没有存档文件，空数组表示用户确实清空了列表
+#[tauri::command]
+pub fn load_sources(app: AppHandle) -> Result<Option<Vec<SourceConfig>>, String> {
+    let path = sources_path(&app)?;
+    if !path.exists() {
+        return Ok(None);
+    }
+
+    let content = fs::read_to_string(path).map_err(|error| error.to_string())?;
+    let sources = serde_json::from_str(&content).map_err(|error| error.to_string())?;
+    Ok(Some(sources))
+}
+
+#[tauri::command]
+pub fn save_sources(app: AppHandle, sources: Vec<SourceConfig>) -> Result<(), String> {
+    let path = sources_path(&app)?;
+    let content = serde_json::to_string_pretty(&sources).map_err(|error| error.to_string())?;
+    fs::write(path, content).map_err(|error| error.to_string())
 }
